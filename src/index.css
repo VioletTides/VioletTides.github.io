@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-amber-primary: #ffb000;
+  --color-vfd-teal: #00f2ff;
+  --color-vfd-dim: #004d4f;
+  --color-vfd-green: #00ff41;
+  --color-vfd-red: #ff3131;
+  --color-amber-vfd: #ffb000;
+  --color-amber-vfd-dim: #4d3500;
+  --color-amber-glow: rgba(255, 176, 0, 0.15);
+  --color-vfd-glow: rgba(0, 242, 255, 0.15);
+  --color-surface-dark: #080808;
+  --color-surface-card: #121414;
+  --color-surface-header: #1b1c1c;
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes pulse-live {
+    0%, 100% { opacity: 1; filter: brightness(1.2); }
+    50% { opacity: 0.3; filter: brightness(0.8); }
+  }
+
+  @keyframes flicker {
+    0%, 19.9%, 22%, 62.9%, 64%, 64.9%, 70%, 100% { opacity: 1; }
+    20%, 21.9%, 63%, 63.9%, 65%, 69.9% { opacity: 0.4; }
+  }
+
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(-1px, -1px); }
+    60% { transform: translate(1px, 1px); }
+    80% { transform: translate(1px, -1px); }
+    100% { transform: translate(0); }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  @keyframes crt-flicker {
+    0% { opacity: 1; transform: translateY(0); }
+    10% { opacity: 0.95; transform: translateY(0.5px); }
+    20% { opacity: 1; transform: translateY(-0.5px); }
+    30% { opacity: 0.98; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-surface-dark text-white font-mono overflow-hidden;
+    background-image: linear-gradient(rgba(255, 176, 0, 0.02) 1px, transparent 1px);
+    background-size: 100% 4px;
+  }
+}
+
+@layer utilities {
+  .amber-text-glow {
+    text-shadow: 0 0 8px rgba(255, 176, 0, 0.6), 0 0 2px rgba(255, 176, 0, 0.3);
+  }
+  
+  .vfd-text-glow {
+    text-shadow: 0 0 6px rgba(0, 242, 255, 0.3), 0 0 1px rgba(0, 242, 255, 0.2);
+  }
+
+  .green-text-glow {
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.6), 0 0 2px rgba(0, 255, 65, 0.3);
+  }
+
+  .red-text-glow {
+    text-shadow: 0 0 8px rgba(255, 49, 49, 0.6), 0 0 2px rgba(255, 49, 49, 0.3);
+  }
+
+  .amber-box-glow {
+    box-shadow: 0 0 15px rgba(255, 176, 0, 0.15);
+  }
+
+  .green-box-glow {
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
+  }
+
+  .red-box-glow {
+    box-shadow: 0 0 15px rgba(255, 49, 49, 0.15);
+  }
+
+  .vfd-box-glow {
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.05);
+  }
+
+  .dot-matrix {
+    mask-image: radial-gradient(circle, #fff 35%, transparent 45%);
+    mask-size: 3px 3px;
+  }
+
+  .vfd-panel {
+    background: radial-gradient(circle at center, #151000 0%, #000 100%);
+    border: 1px solid rgba(255, 176, 0, 0.08);
+  }
+
+  .vfd-panel-teal {
+    background: radial-gradient(circle at center, #001011 0%, #000 100%);
+    border: 1px solid rgba(0, 242, 255, 0.05);
+  }
+
+  .crt-bg-effect {
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(255, 176, 0, 0.02) 50%), linear-gradient(90deg, transparent, rgba(255, 176, 0, 0.01), transparent);
+    background-size: 100% 4px, 100% 100%;
+  }
+
+  .scanline-overlay {
+    @apply fixed inset-0 pointer-events-none z-50;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.015), rgba(0, 255, 0, 0.005), rgba(0, 0, 255, 0.015));
+    background-size: 100% 2px, 3px 100%;
+  }
+
+  .blinking-cursor::after {
+    content: "█";
+    @apply animate-[blink_1s_step-end_infinite] ml-1 text-amber-primary;
+  }
+
+  .animate-ticker {
+    animation: ticker 20s linear infinite;
+  }
+
+  .animate-pulse-live {
+    animation: pulse-live 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-flicker {
+    animation: flicker 2s infinite;
+  }
+
+  .animate-glitch {
+    animation: glitch 1.5s infinite;
+  }
+}
