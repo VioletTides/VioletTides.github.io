@@ -143,10 +143,11 @@ export const HomeView = ({ logs }: { logs: LogEntry[] }) => (
                 className="flex gap-4 group"
               >
                 <span className="text-white/20 shrink-0">{log.timestamp}</span>
-                <span className={`
-                  ${log.type === 'warn' ? 'text-vfd-red brightness-125 red-text-glow' : ''}
-                  ${log.type === 'success' ? 'text-vfd-green brightness-125 green-text-glow' : 'text-amber-primary/60 amber-text-glow'}
-                `}>
+                <span className={
+                  log.type === 'warn' ? 'text-vfd-red brightness-125 red-text-glow' : 
+                  log.type === 'success' ? 'text-vfd-green brightness-125 green-text-glow' : 
+                  'text-amber-primary/60 amber-text-glow'
+                }>
                   {log.message}
                 </span>
               </motion.div>
