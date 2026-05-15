@@ -1,5 +1,5 @@
 export const IMAGES = {
-  PROFILE: '/assets/myheadshot.png',
+  PROFILE: 'assets/myheadshot.png',
   PROJECTS: {
     QUANTUM_NAV: 'https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&q=80&w=600',
     GRID_SYNC: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=600',
