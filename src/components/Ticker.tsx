@@ -8,7 +8,7 @@ export const Ticker = ({ title, mod, items }: { title: string; mod: string; item
         <div className="w-1.5 h-1.5 bg-vfd-green rounded-full animate-pulse-live shadow-[0_0_8px_#00ff41]" />
         <span className="text-[10px] font-bold tracking-wider text-amber-primary/80 uppercase amber-text-glow">{title}</span>
       </div>
-      <span className="text-[10px] text-vfd-teal/40 font-mono tracking-tighter">MOD_01</span>
+      <span className="text-[10px] text-vfd-teal/40 font-mono tracking-tighter">{mod}</span>
     </div>
     <div className="p-3 overflow-hidden whitespace-nowrap relative z-10 bg-[#0a0800]">
       {/* VFD Dot Grid Overlay */}

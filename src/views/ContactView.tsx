@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Zap } from 'lucide-react';
 
 import { motion } from 'motion/react';
@@ -23,6 +23,20 @@ const itemVariants = {
 };
 
 export const ContactView = () => {
+  const [subject, setSubject] = useState('');
+  const [body, setBody] = useState('');
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const params = new URLSearchParams({
+      subject: subject || 'Website inquiry',
+      body: body || 'Hi Robin,\n\n',
+    });
+
+    window.location.href = `mailto:robin34anderson+websitecontact@gmail.com?${params.toString()}`;
+  };
+
   return (
     <motion.div 
       variants={containerVariants}
@@ -44,13 +58,16 @@ export const ContactView = () => {
       <div className="flex-1 bg-black/40 border border-white/10 p-4 sm:p-8 flex flex-col gap-8 relative md:overflow-y-auto">
         <div className="absolute inset-0 crt-bg-effect opacity-10 pointer-events-none" />
         
-        <div className="space-y-6 max-w-lg">
+        <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
           <div className="space-y-2">
-            <label className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Subject</label>
+            <label htmlFor="contact-subject" className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Subject</label>
             <div className="flex items-center gap-2 border-b border-white/10 pb-2 group focus-within:border-amber-primary/50 transition-colors">
               <span className="text-amber-primary animate-flicker">&gt;</span>
               <input 
+                id="contact-subject"
                 type="text" 
+                value={subject}
+                onChange={(event) => setSubject(event.target.value)}
                 placeholder="Transmission header..." 
                 className="bg-transparent border-none outline-none text-amber-primary text-xs w-full placeholder:text-white/10 font-mono"
               />
@@ -58,24 +75,32 @@ export const ContactView = () => {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Body</label>
+            <label htmlFor="contact-body" className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Body</label>
             <textarea 
+              id="contact-body"
               rows={4}
+              value={body}
+              onChange={(event) => setBody(event.target.value)}
               placeholder="Encryption sequence... Input text data now." 
               className="bg-white/5 border border-white/10 p-4 outline-none text-amber-primary text-xs w-full placeholder:text-white/10 font-mono focus:border-amber-primary/30 transition-colors resize-none"
             />
           </div>
 
-          <button className="bg-amber-primary text-black font-bold text-[11px] px-8 py-3 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center justify-center gap-2 amber-box-glow w-full sm:w-auto">
+          <button type="submit" className="bg-amber-primary text-black font-bold text-[11px] px-8 py-3 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center justify-center gap-2 amber-box-glow w-full sm:w-auto">
             <Zap size={14} />
             SEND_TRANSMISSION
           </button>
-        </div>
+        </form>
 
         <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="border border-white/5 p-4 space-y-1">
             <span className="text-[9px] text-white/30 uppercase tracking-widest block">Direct_Access</span>
-            <p className="text-[11px] text-amber-primary/80 amber-text-glow font-mono">robin.anderson@sys_core.local</p>
+            <a
+              href="mailto:robin34anderson+websitecontact@gmail.com"
+              className="text-[11px] text-amber-primary/80 amber-text-glow font-mono break-all hover:text-amber-primary"
+            >
+              robin34anderson+websitecontact@gmail.com
+            </a>
           </div>
           <div className="border border-white/5 p-4 space-y-1">
             <span className="text-[9px] text-white/30 uppercase tracking-widest block">Location_Ref</span>

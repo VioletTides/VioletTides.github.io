@@ -123,6 +123,16 @@
     background-size: 100% 2px, 3px 100%;
   }
 
+  .noise-overlay {
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.18) 0 0.6px, transparent 0.8px),
+      radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.14) 0 0.5px, transparent 0.7px),
+      radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.16) 0 0.7px, transparent 0.9px),
+      radial-gradient(circle at 65% 80%, rgba(255, 255, 255, 0.1) 0 0.5px, transparent 0.7px);
+    background-size: 11px 11px, 13px 13px, 17px 17px, 19px 19px;
+    background-position: 0 0, 3px 5px, 5px 2px, 7px 9px;
+  }
+
   .blinking-cursor::after {
     content: "█";
     @apply animate-[blink_1s_step-end_infinite] ml-1 text-amber-primary;

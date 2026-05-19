@@ -123,7 +123,7 @@ export const BootSequence = ({ onComplete }: { onComplete: () => void, key?: str
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_40%_30%,rgba(255,255,255,0.1)_0%,transparent_40%),radial-gradient(circle_at_60%_70%,rgba(255,255,255,0.05)_0%,transparent_30%)] z-20" />
         
         {/* Static / Grain */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.08] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-30" />
+        <div className="absolute inset-0 pointer-events-none opacity-[0.08] noise-overlay z-30" />
         
         {/* Dense Scanlines */}
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.04),rgba(0,255,0,0.02),rgba(0,0,255,0.04))] bg-[length:100%_2px,2px_100%] z-40 opacity-70" />

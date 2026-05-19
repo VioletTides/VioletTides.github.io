@@ -125,6 +125,11 @@ export default function App() {
                     <img 
                       src={IMAGES.PROFILE} 
                       alt="Robin Anderson"
+                      width="720"
+                      height="720"
+                      loading="eager"
+                      decoding="async"
+                      fetchPriority="high"
                       className="w-full h-full object-cover brightness-110 contrast-110"
                       onError={(e) => {
                         // Fallback in case the image fails to load
@@ -158,10 +163,15 @@ export default function App() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-2 pt-2 justify-center md:justify-start">
-                <button className="bg-amber-primary text-black font-bold text-[10px] sm:text-[11px] px-6 py-2.5 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center gap-2 amber-box-glow justify-center active:scale-95">
+                <a
+                  href={`${import.meta.env.BASE_URL}Robin-Anderson-Resume.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-amber-primary text-black font-bold text-[10px] sm:text-[11px] px-6 py-2.5 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center gap-2 amber-box-glow justify-center active:scale-95"
+                >
                   <Download size={14} />
                   EXTRACT_RESUME.PDF
-                </button>
+                </a>
                 <div className="flex gap-2 justify-center">
                   <a 
                     href="https://github.com/robin-anderson" 
@@ -211,9 +221,9 @@ export default function App() {
           </div>
 
           <div className="flex gap-6 md:gap-8">
-            <a href="#" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">GITHUB</a>
-            <a href="#" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">LINKEDIN</a>
-            <a href="#" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">DOCS</a>
+            <a href="https://github.com/robin-anderson" target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">GITHUB</a>
+            <a href="https://linkedin.com/in/robin-anderson" target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">LINKEDIN</a>
+            <a href={`${import.meta.env.BASE_URL}Robin-Anderson-Resume.pdf`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">RESUME</a>
           </div>
 
           <div className="flex gap-6">
