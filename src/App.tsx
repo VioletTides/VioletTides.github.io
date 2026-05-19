@@ -117,7 +117,7 @@ export default function App() {
         >
           
           {/* Identity Section (Sidebar) */}
-          <section className="md:col-span-3 flex flex-col gap-6 order-1">
+          <section className="md:col-span-3 flex flex-col gap-6 order-1 pb-4 md:pb-6">
             <div className={`transition-all duration-500 ${currentView !== 'home' ? 'md:opacity-40 md:hover:opacity-100' : ''}`}>
               <div className="bg-surface-card border border-white/10 p-1 amber-box-glow max-w-[280px] sm:max-w-sm mx-auto md:max-w-none w-full">
                 <div className="bg-surface-dark border border-white/10 p-1 relative">
@@ -153,12 +153,10 @@ export default function App() {
 
             <div className={`space-y-4 text-center md:text-left transition-all duration-300 ${currentView !== 'home' ? 'hidden md:block' : 'block'}`}>
               <div>
-                <span className="text-[10px] text-white/40 mb-1 block tracking-widest uppercase font-bold">NAME_ARRAY</span>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl text-amber-primary font-sans font-bold tracking-tight amber-text-glow uppercase leading-none">ROBIN ANDERSON</h1>
               </div>
               
               <div>
-                <span className="text-[10px] text-white/40 mb-1 block tracking-widest uppercase font-bold">DESIGNATION</span>
                 <p className="text-base sm:text-lg text-white/90 blinking-cursor amber-text-glow font-sans font-medium">Embedded Systems Engineer</p>
               </div>
 
@@ -195,7 +193,7 @@ export default function App() {
           </section>
 
           {/* Dynamic Content Modules */}
-          <section className="md:col-span-6 flex flex-col gap-6 min-h-0 relative order-2">
+          <section className="md:col-span-6 flex flex-col gap-6 min-h-0 relative order-2 pb-4 md:pb-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentView}
