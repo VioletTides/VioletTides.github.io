@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Ticker } from '../components/Ticker';
 import { ModuleHeader } from '../components/ModuleHeader';
-import { GitHubCommitMetric, LogEntry } from '../types';
+import { GitHubRepoMetrics, LogEntry } from '../types';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -36,10 +36,10 @@ const itemVariants = {
 
 export const HomeView = ({
   logs,
-  commitMetric,
+  repoMetrics,
 }: {
   logs: LogEntry[];
-  commitMetric: GitHubCommitMetric;
+  repoMetrics: GitHubRepoMetrics;
 }) => (
   <motion.div 
     variants={containerVariants}
@@ -77,8 +77,8 @@ export const HomeView = ({
           </div>
         </div>
       </motion.div>
-      <motion.div variants={itemVariants} className="flex flex-col gap-4">
-        <div className="bg-black/40 border border-white/10 flex flex-col min-h-[120px] relative">
+      <motion.div variants={itemVariants} className="flex flex-col gap-4 md:h-full">
+        <div className="bg-black/40 border border-white/10 flex flex-col min-h-[220px] md:flex-[1.35] relative">
           <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
           <ModuleHeader title="REPOSITORY_METRICS" right="V_042" />
           <div className="p-3 text-[10px] text-amber-primary/60 space-y-3 z-10">
@@ -96,20 +96,70 @@ export const HomeView = ({
                 />
               </div>
             </div>
-            <div className="flex justify-between items-center amber-text-glow">
-              <span>COMMITS_PUSHED:</span>
-              <span className="text-amber-primary font-bold">
-                {commitMetric.status === 'ready'
-                  ? `${commitMetric.count.toLocaleString()}_SEQ`
-                  : commitMetric.status === 'error'
-                    ? 'SYNC_ERR'
-                    : 'SYNCING'}
-              </span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center border-b border-white/5 pb-1 amber-text-glow">
+                <span>COMMITS_PUSHED:</span>
+                <span className="text-amber-primary font-bold">
+                  {repoMetrics.status === 'ready' && repoMetrics.count !== null
+                    ? `${repoMetrics.count.toLocaleString()} COMMITS`
+                    : repoMetrics.status === 'error'
+                      ? 'SYNC_ERR'
+                      : 'SYNCING'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                <span className="text-amber-primary/60 amber-text-glow">LAST_PUSH_UTC</span>
+                <span className="text-vfd-teal/70 vfd-text-glow uppercase">
+                  {repoMetrics.status === 'ready' && repoMetrics.lastPushIso
+                    ? new Date(repoMetrics.lastPushIso).toISOString().slice(0, 16).replace('T', ' ')
+                    : repoMetrics.status === 'error'
+                      ? 'UNAVAILABLE'
+                      : 'SYNCING'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                <span className="text-amber-primary/60 amber-text-glow">LATEST_COMMIT_SHA</span>
+                <span className="text-vfd-green/80 green-text-glow uppercase">
+                  {repoMetrics.status === 'ready' && repoMetrics.latestSha
+                    ? repoMetrics.latestSha
+                    : repoMetrics.status === 'error'
+                      ? 'UNAVAILABLE'
+                      : 'SYNCING'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center border-b border-white/5 pb-1">
+                <span className="text-amber-primary/60 amber-text-glow">TOP_LANGUAGE</span>
+                <span className="text-amber-primary/80 amber-text-glow uppercase">
+                  {repoMetrics.status === 'ready' && repoMetrics.topLanguage
+                    ? repoMetrics.topLanguage
+                    : repoMetrics.status === 'error'
+                      ? 'UNAVAILABLE'
+                      : 'SYNCING'}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-amber-primary/60 amber-text-glow">DEPLOY_STATUS</span>
+                <span className={`uppercase ${
+                  repoMetrics.deployStatus === 'success'
+                    ? 'text-vfd-green green-text-glow'
+                    : repoMetrics.deployStatus === 'failure'
+                      ? 'text-vfd-red red-text-glow'
+                      : repoMetrics.deployStatus === 'in_progress' || repoMetrics.deployStatus === 'queued'
+                        ? 'text-amber-primary amber-text-glow'
+                        : 'text-white/40'
+                }`}>
+                  {repoMetrics.status === 'error'
+                    ? 'UNAVAILABLE'
+                    : repoMetrics.deployStatus === 'unknown'
+                      ? 'SYNCING'
+                      : repoMetrics.deployStatus}
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="flex-1 bg-black/40 border border-white/10 flex flex-col min-h-[150px] relative">
+        <div className="bg-black/40 border border-white/10 flex flex-col min-h-[120px] md:flex-[0.75] relative">
            <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
            <div className="bg-[#1c1600] px-3 py-1.5 border-b border-amber-primary/20 flex justify-between items-center z-10">
             <span className="text-[10px] font-bold text-amber-primary amber-text-glow tracking-wider">VISITOR_TELEMETRY</span>

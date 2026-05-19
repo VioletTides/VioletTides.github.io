@@ -1,0 +1,114 @@
+[
+  {
+    "id": "01",
+    "slug": "quantum-nav-os",
+    "title": "QUANTUM_NAV_OS",
+    "desc": "Real-time operating system for autonomous drone swarm navigation. Implements advanced Kalman filtering for sensor fusion and path planning in high-density obstacles.",
+    "overview": "A firmware and control stack for autonomous drone fleets operating in high-density obstacle fields, optimized around deterministic task scheduling and low-latency sensor fusion.",
+    "challenge": "The system had to maintain stable guidance and collision avoidance while reconciling noisy sensor inputs, limited onboard compute, and highly variable line-of-sight conditions.",
+    "outcome": "Delivered a navigation core with deterministic timing characteristics, resilient fallback states, and tunable flight-control behavior suitable for further hardware integration testing.",
+    "role": "Embedded Systems Engineer",
+    "period": "2024",
+    "stack": ["C++", "RTOS", "FPGA"],
+    "status": "STABLE",
+    "imageKey": "QUANTUM_NAV",
+    "highlights": [
+      "Deterministic task scheduling for guidance loops",
+      "Sensor fusion pipeline tuned for noisy field conditions",
+      "Fallback state machine for degraded navigation scenarios"
+    ],
+    "metrics": [
+      { "label": "CONTROL_LOOP", "value": "250HZ" },
+      { "label": "PATH_REPLAN", "value": "<18MS" },
+      { "label": "NODE_DENSITY", "value": "32_UNITS" }
+    ],
+    "links": [
+      { "label": "CASE_STUDY", "href": "#" },
+      { "label": "SYSTEM_NOTES", "href": "#" }
+    ]
+  },
+  {
+    "id": "02",
+    "slug": "grid-sync-kernel",
+    "title": "GRID_SYNC_KERNEL",
+    "desc": "Smart grid load balancing firmware with micro-second latency. Manages distributed energy resources across large-scale industrial power networks.",
+    "overview": "A distributed control kernel for balancing industrial energy loads across multiple nodes while maintaining strict timing guarantees and protecting critical infrastructure state.",
+    "challenge": "The platform needed to arbitrate between fast-moving demand signals, legacy industrial interfaces, and safety-first recovery behavior without introducing destabilizing control lag.",
+    "outcome": "Produced a kernel architecture for low-latency balancing decisions, clear operator visibility, and safer fault isolation across distributed energy domains.",
+    "role": "Firmware / Systems Engineer",
+    "period": "2023",
+    "stack": ["Rust", "Embedded Linux"],
+    "status": "DELEGATED",
+    "imageKey": "GRID_SYNC",
+    "highlights": [
+      "Priority-aware balancing decisions across node clusters",
+      "Fault isolation logic for unstable grid segments",
+      "Operator telemetry hooks for plant-side observability"
+    ],
+    "metrics": [
+      { "label": "SWITCH_LATENCY", "value": "7US" },
+      { "label": "GRID_NODES", "value": "128" },
+      { "label": "FAILOVER_MODE", "value": "HOT" }
+    ],
+    "links": [
+      { "label": "ARCHITECTURE", "href": "#" },
+      { "label": "RECOVERY_FLOW", "href": "#" }
+    ]
+  },
+  {
+    "id": "03",
+    "slug": "bio-sensor-array",
+    "title": "BIO_SENSOR_ARRAY",
+    "desc": "High-throughput signal processing for wearable medical devices. Features low-power consumption design and high-fidelity ADC sampling algorithms.",
+    "overview": "A signal-acquisition and processing platform for wearable medical sensing, focused on preserving fidelity while staying within aggressive power and thermal constraints.",
+    "challenge": "The product needed to balance sampling precision, battery life, and interpretable telemetry output while supporting long-running data capture sessions on small hardware.",
+    "outcome": "Shaped a low-power sensing pipeline with efficient sampling behavior, cleaner downstream signal data, and better readiness for embedded analytics work.",
+    "role": "Embedded DSP Engineer",
+    "period": "2022",
+    "stack": ["ARM Cortex-M4", "DSP"],
+    "status": "ACTIVE",
+    "imageKey": "BIO_SENSOR",
+    "highlights": [
+      "Low-power acquisition tuned for wearable duty cycles",
+      "Signal conditioning pipeline for cleaner downstream analysis",
+      "Sampling strategy designed around battery-sensitive hardware"
+    ],
+    "metrics": [
+      { "label": "ADC_PATH", "value": "16BIT" },
+      { "label": "POWER_DRAW", "value": "14MW" },
+      { "label": "STREAM_WINDOW", "value": "72HR" }
+    ],
+    "links": [
+      { "label": "SIGNAL_FLOW", "href": "#" },
+      { "label": "VALIDATION", "href": "#" }
+    ]
+  },
+  {
+    "id": "04",
+    "slug": "neural-embed-core",
+    "title": "NEURAL_EMBED_CORE",
+    "desc": "Lightweight neural network inference engine optimized for edge devices. Enables on-device machine learning with minimal memory footprint.",
+    "overview": "An embedded inference runtime designed for constrained devices that need local ML capability without depending on cloud inference or large memory allocations.",
+    "challenge": "The runtime had to fit within limited memory budgets, maintain predictable performance, and expose a deployment path that hardware-oriented teams could actually operate.",
+    "outcome": "Established a compact inference core with predictable runtime characteristics and a deployment model suited to edge-device integration work.",
+    "role": "Edge ML / Embedded Engineer",
+    "period": "2024",
+    "stack": ["C", "TensorFlow Lite", "MCU"],
+    "status": "ACTIVE",
+    "imageKey": "NEURAL_EMBED",
+    "highlights": [
+      "Compact runtime tuned for constrained memory budgets",
+      "Predictable inference behavior for edge-device firmware",
+      "Deployment model designed for on-device execution"
+    ],
+    "metrics": [
+      { "label": "MODEL_RAM", "value": "2.4MB" },
+      { "label": "INFER_TIME", "value": "31MS" },
+      { "label": "TARGET_CLASS", "value": "EDGE_MCU" }
+    ],
+    "links": [
+      { "label": "RUNTIME_NOTES", "href": "#" },
+      { "label": "DEPLOY_GUIDE", "href": "#" }
+    ]
+  }
+]

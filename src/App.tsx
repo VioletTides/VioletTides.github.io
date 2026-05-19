@@ -14,7 +14,7 @@ import {
   Linkedin
 } from 'lucide-react';
 
-import { GitHubCommitMetric, LogEntry, View } from './types';
+import { GitHubRepoMetrics, LogEntry, View } from './types';
 import { HomeView } from './views/HomeView';
 import { ProjectsView } from './views/ProjectsView';
 import { ContactView } from './views/ContactView';
@@ -30,6 +30,7 @@ const GITHUB_REPO = {
   owner: 'VioletTides',
   name: 'VioletTides.github.io',
 };
+const DEPLOY_WORKFLOW_FILE = 'deploy.yml';
 
 function parseLastPage(linkHeader: string | null) {
   if (!linkHeader) {
@@ -52,9 +53,13 @@ function parseLastPage(linkHeader: string | null) {
 export default function App() {
   const [isBooting, setIsBooting] = useState(true);
   const [currentView, setCurrentView] = useState<View>('home');
-  const [commitMetric, setCommitMetric] = useState<GitHubCommitMetric>({
+  const [repoMetrics, setRepoMetrics] = useState<GitHubRepoMetrics>({
     status: 'loading',
     count: null,
+    lastPushIso: null,
+    latestSha: null,
+    topLanguage: null,
+    deployStatus: 'unknown',
   });
 
   const [logs, setLogs] = useState<LogEntry[]>([
@@ -89,44 +94,79 @@ export default function App() {
   useEffect(() => {
     const controller = new AbortController();
 
-    async function loadCommitCount() {
+    async function loadRepoMetrics() {
       try {
-        const response = await fetch(
-          `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}/commits?per_page=1`,
-          {
-            signal: controller.signal,
-            headers: {
-              Accept: 'application/vnd.github+json',
-            },
-          },
-        );
+        const headers = {
+          Accept: 'application/vnd.github+json',
+        };
 
-        if (!response.ok) {
-          throw new Error(`GitHub API returned ${response.status}`);
+        const [repoResponse, commitsResponse, languagesResponse, deploysResponse] = await Promise.all([
+          fetch(`https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}`, {
+            signal: controller.signal,
+            headers,
+          }),
+          fetch(`https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}/commits?per_page=1`, {
+            signal: controller.signal,
+            headers,
+          }),
+          fetch(`https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}/languages`, {
+            signal: controller.signal,
+            headers,
+          }),
+          fetch(`https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}/actions/workflows/${DEPLOY_WORKFLOW_FILE}/runs?branch=main&per_page=1`, {
+            signal: controller.signal,
+            headers,
+          }),
+        ]);
+
+        if (!repoResponse.ok || !commitsResponse.ok || !languagesResponse.ok || !deploysResponse.ok) {
+          throw new Error('GitHub API request failed');
         }
 
-        const commits = (await response.json()) as unknown[];
-        const lastPage = parseLastPage(response.headers.get('link'));
-        const count = lastPage ?? commits.length;
+        const repo = (await repoResponse.json()) as { pushed_at?: string };
+        const commits = (await commitsResponse.json()) as Array<{ sha?: string }>;
+        const languages = (await languagesResponse.json()) as Record<string, number>;
+        const deploys = (await deploysResponse.json()) as {
+          workflow_runs?: Array<{ conclusion?: string | null; status?: string | null }>;
+        };
 
-        setCommitMetric({
+        const lastPage = parseLastPage(commitsResponse.headers.get('link'));
+        const count = lastPage ?? commits.length;
+        const topLanguageEntry = Object.entries(languages).sort((a, b) => b[1] - a[1])[0];
+        const latestRun = deploys.workflow_runs?.[0];
+        const deployStatus =
+          latestRun?.conclusion === 'success' ? 'success' :
+          latestRun?.conclusion === 'failure' ? 'failure' :
+          latestRun?.status === 'in_progress' ? 'in_progress' :
+          latestRun?.status === 'queued' ? 'queued' :
+          'unknown';
+
+        setRepoMetrics({
           status: 'ready',
           count,
+          lastPushIso: repo.pushed_at ?? null,
+          latestSha: commits[0]?.sha?.slice(0, 7) ?? null,
+          topLanguage: topLanguageEntry?.[0] ?? null,
+          deployStatus,
         });
       } catch (error) {
         if (controller.signal.aborted) {
           return;
         }
 
-        console.error('Failed to load commit count', error);
-        setCommitMetric({
+        console.error('Failed to load repository metrics', error);
+        setRepoMetrics({
           status: 'error',
           count: null,
+          lastPushIso: null,
+          latestSha: null,
+          topLanguage: null,
+          deployStatus: 'unknown',
         });
       }
     }
 
-    loadCommitCount();
+    loadRepoMetrics();
 
     return () => controller.abort();
   }, []);
@@ -275,7 +315,7 @@ export default function App() {
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="flex-1 flex flex-col gap-6 min-h-0"
               >
-                {currentView === 'home' && <MemoHome logs={logs} commitMetric={commitMetric} />}
+                {currentView === 'home' && <MemoHome logs={logs} repoMetrics={repoMetrics} />}
                 {currentView === 'projects' && <MemoProjects />}
                 {currentView === 'contact' && <MemoContact />}
               </motion.div>
