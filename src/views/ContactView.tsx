@@ -47,11 +47,11 @@ export const ContactView = () => {
       <div className="bg-amber-primary/10 border border-amber-primary/30 p-4 amber-text-glow flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-xl font-sans font-bold text-amber-primary tracking-tight uppercase">COMM_TERMINAL::ESTABLISH</h2>
-          <p className="text-[10px] text-amber-primary/60 mt-1 uppercase tracking-widest">Secure handshake required for outbound transmission.</p>
+          <p className="text-[11px] text-amber-primary/60 mt-1 uppercase tracking-widest">Secure handshake required for outbound transmission.</p>
         </div>
         <div className="flex shrink-0 items-center gap-3 bg-black/40 px-3 py-2 border border-vfd-green/20">
           <div className="w-2 h-2 bg-vfd-green rounded-full animate-pulse shadow-[0_0_8px_#00ff41]" />
-          <span className="text-[10px] font-bold text-vfd-green green-text-glow tracking-tighter">SECURE_LINK</span>
+          <span className="text-[11px] font-bold text-vfd-green green-text-glow tracking-tighter">SECURE_LINK</span>
         </div>
       </div>
 
@@ -60,7 +60,7 @@ export const ContactView = () => {
         
         <form onSubmit={handleSubmit} className="space-y-6 max-w-lg">
           <div className="space-y-2">
-            <label htmlFor="contact-subject" className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Subject</label>
+            <label htmlFor="contact-subject" className="text-[11px] text-amber-primary/50 uppercase tracking-widest block">Input_Subject</label>
             <div className="flex items-center gap-2 border-b border-white/10 pb-2 group focus-within:border-amber-primary/50 transition-colors">
               <span className="text-amber-primary animate-flicker">&gt;</span>
               <input 
@@ -69,24 +69,24 @@ export const ContactView = () => {
                 value={subject}
                 onChange={(event) => setSubject(event.target.value)}
                 placeholder="Transmission header..." 
-                className="bg-transparent border-none outline-none text-amber-primary text-xs w-full placeholder:text-white/10 font-mono"
+                className="bg-transparent border-none text-sm w-full placeholder:text-white/20 font-mono"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="contact-body" className="text-[10px] text-amber-primary/50 uppercase tracking-widest block">Input_Body</label>
+            <label htmlFor="contact-body" className="text-[11px] text-amber-primary/50 uppercase tracking-widest block">Input_Body</label>
             <textarea 
               id="contact-body"
               rows={4}
               value={body}
               onChange={(event) => setBody(event.target.value)}
               placeholder="Encryption sequence... Input text data now." 
-              className="bg-white/5 border border-white/10 p-4 outline-none text-amber-primary text-xs w-full placeholder:text-white/10 font-mono focus:border-amber-primary/30 transition-colors resize-none"
+              className="bg-white/5 border border-white/10 p-4 text-sm text-amber-primary w-full placeholder:text-white/20 font-mono focus:border-amber-primary/30 transition-colors resize-none"
             />
           </div>
 
-          <button type="submit" className="bg-amber-primary text-black font-bold text-[11px] px-8 py-3 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center justify-center gap-2 amber-box-glow w-full sm:w-auto">
+          <button type="submit" className="bg-amber-primary text-black font-bold text-sm px-8 py-3 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center justify-center gap-2 amber-box-glow w-full sm:w-auto">
             <Zap size={14} />
             SEND_TRANSMISSION
           </button>
@@ -94,17 +94,17 @@ export const ContactView = () => {
 
         <div className="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="border border-white/5 p-4 space-y-1">
-            <span className="text-[9px] text-white/30 uppercase tracking-widest block">Direct_Access</span>
+            <span className="text-[11px] text-white/30 uppercase tracking-widest block">Direct_Access</span>
             <a
               href="mailto:robin34anderson+websitecontact@gmail.com"
-              className="text-[11px] text-amber-primary/80 amber-text-glow font-mono break-all hover:text-amber-primary"
+              className="text-sm text-amber-primary/80 amber-text-glow font-mono break-all hover:text-amber-primary"
             >
               robin34anderson+websitecontact@gmail.com
             </a>
           </div>
           <div className="border border-white/5 p-4 space-y-1">
-            <span className="text-[9px] text-white/30 uppercase tracking-widest block">Location_Ref</span>
-            <p className="text-[11px] text-amber-primary/80 amber-text-glow font-mono">Silicon Valley, Sector_04</p>
+            <span className="text-[11px] text-white/30 uppercase tracking-widest block">Location_Ref</span>
+            <p className="text-sm text-amber-primary/80 amber-text-glow font-mono">Silicon Valley, Sector_04</p>
           </div>
         </div>
       </div>

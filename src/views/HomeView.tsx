@@ -67,7 +67,7 @@ export const HomeView = ({
         <div className="flex-1 bg-black/40 border border-white/10 flex flex-col min-h-[180px] relative">
           <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
           <ModuleHeader title="CORE_PROCESSES" />
-          <div className="p-3 text-[10px] text-amber-primary/70 overflow-hidden space-y-1 z-10">
+          <div className="p-3 text-[11px] text-amber-primary/70 overflow-hidden space-y-1 z-10">
             <div className="flex gap-4"><span className="opacity-30">01</span> <span className="amber-text-glow">CPU_IDLE_THREAD :: ACTIVE</span></div>
             <div className="flex gap-4"><span className="opacity-30">02</span> <span className="text-vfd-green green-text-glow">MEM_MGR_V1 :: STABLE (24GB)</span></div>
             <div className="flex gap-4"><span className="opacity-30 font-bold text-amber-primary">03</span> <span className="text-vfd-teal vfd-text-glow uppercase">SCHED_POLICY :: REALTIME</span></div>
@@ -81,9 +81,9 @@ export const HomeView = ({
         <div className="bg-black/40 border border-white/10 flex flex-col min-h-[220px] md:flex-[1.35] relative">
           <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
           <ModuleHeader title="REPOSITORY_METRICS" right="V_042" />
-          <div className="p-3 text-[10px] text-amber-primary/60 space-y-3 z-10">
+          <div className="p-3 text-[11px] text-amber-primary/60 space-y-3 z-10">
             <div className="space-y-1">
-              <div className="flex justify-between text-[9px] font-bold">
+              <div className="flex justify-between text-[11px] font-bold">
                 <span className="text-vfd-green green-text-glow">REPO_HEALTH: STABLE</span>
                 <span className="text-vfd-green/80">82%</span>
               </div>
@@ -163,10 +163,10 @@ export const HomeView = ({
            <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
            <div className="bg-[#1c1600] px-3 py-1.5 border-b border-amber-primary/20 flex justify-between items-center z-10">
             <span className="text-[10px] font-bold text-amber-primary amber-text-glow tracking-wider">VISITOR_TELEMETRY</span>
-            <span className="text-[8px] text-vfd-green animate-pulse-live green-text-glow">SYNCED</span>
+            <span className="text-[11px] text-vfd-green animate-pulse-live green-text-glow">SYNCED</span>
             <div className="absolute inset-0 dot-matrix opacity-10 pointer-events-none" />
           </div>
-          <div className="p-3 text-[10px] space-y-2 z-10 bg-black/40 flex-1">
+          <div className="p-3 text-[11px] space-y-2 z-10 bg-black/40 flex-1">
             <div className="flex justify-between items-center border-b border-white/5 pb-1">
               <span className="text-amber-primary/60 amber-text-glow">UNIQUE_VISITS</span>
               <span className="px-1.5 bg-amber-primary/20 text-amber-primary border border-amber-primary/40 amber-text-glow">12,408</span>
@@ -189,11 +189,11 @@ export const HomeView = ({
         <div className="bg-[#1c1600] px-3 py-1.5 border-b border-amber-primary/20 flex justify-between items-center z-10">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 bg-vfd-green rounded-full animate-pulse-live shadow-[0_0_5px_theme(colors.vfd-green)]" />
-            <span className="text-[10px] font-bold text-amber-primary amber-text-glow uppercase tracking-widest">SYSTEM_KERNEL_LOGS.EXE</span>
+            <span className="text-[11px] font-bold text-amber-primary amber-text-glow uppercase tracking-widest">SYSTEM_KERNEL_LOGS.EXE</span>
           </div>
-          <span className="text-[9px] text-amber-primary/40 uppercase font-mono">Auto_Scroll: ON</span>
+          <span className="text-[11px] text-amber-primary/40 uppercase font-mono">Auto_Scroll: ON</span>
         </div>
-        <div className="flex-1 p-3 text-[10px] font-mono space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hide z-10">
+        <div className="flex-1 p-3 text-[11px] font-mono space-y-1 overflow-y-auto overflow-x-hidden scrollbar-hide z-10">
           <AnimatePresence mode="popLayout">
             {logs.map((log) => (
               <motion.div 

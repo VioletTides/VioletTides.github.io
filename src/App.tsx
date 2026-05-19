@@ -203,7 +203,7 @@ export default function App() {
                 key={nav.id}
                 onClick={() => setCurrentView(nav.id as View)}
                 className={`
-                  h-full px-3 pt-2 md:pt-4 pb-2 text-[10px] font-bold uppercase transition-all relative
+                  h-full px-3 pt-2 md:pt-4 pb-2 text-xs font-bold uppercase transition-all relative focus-visible:text-amber-primary
                   ${currentView === nav.id 
                     ? 'text-amber-primary amber-text-glow border-b-2 border-amber-primary' 
                     : 'text-white/40 hover:text-amber-primary/80'}
@@ -287,6 +287,7 @@ export default function App() {
                     href="https://github.com/VioletTides" 
                     target="_blank" 
                     rel="noopener noreferrer"
+                    aria-label="Open Robin Anderson GitHub profile"
                     className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-white/10 text-white/60 hover:border-amber-primary hover:text-amber-primary transition-all hover:bg-amber-primary/5 active:scale-95"
                   >
                     <Github size={18} />
@@ -295,6 +296,7 @@ export default function App() {
                     href="https://linkedin.com/in/robin34anderson" 
                     target="_blank" 
                     rel="noopener noreferrer"
+                    aria-label="Open Robin Anderson LinkedIn profile"
                     className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-white/10 text-white/60 hover:border-amber-primary hover:text-amber-primary transition-all hover:bg-amber-primary/5 active:scale-95"
                   >
                     <Linkedin size={18} />
@@ -326,17 +328,17 @@ export default function App() {
         {/* Footer Status Bar */}
         <footer className="h-auto border-t border-white/10 bg-surface-header/50 backdrop-blur-sm flex flex-col md:flex-row items-center px-4 md:px-8 py-4 md:py-0 justify-between z-10 shrink-0 gap-4 md:gap-0">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6">
-             <span className="text-[9px] text-white/30 tracking-widest font-bold uppercase">BUILD: 2024.11.04-STABLE</span>
-             <span className="text-[9px] text-amber-primary/30 font-bold uppercase">HOST: CORE_TERMINAL_01</span>
+             <span className="text-[11px] text-white/30 tracking-widest font-bold uppercase">BUILD: 2024.11.04-STABLE</span>
+             <span className="text-[11px] text-amber-primary/30 font-bold uppercase">HOST: CORE_TERMINAL_01</span>
           </div>
           <div className="flex gap-6">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] animate-pulse-live" />
-              <span className="text-[9px] font-bold text-vfd-green green-text-glow uppercase">PWR_OK</span>
+              <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">PWR_OK</span>
             </div>
             <div className="hidden sm:flex items-center gap-2">
               <div className="w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] animate-flicker" />
-              <span className="text-[9px] font-bold text-vfd-green green-text-glow uppercase">LINK_ACT</span>
+              <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">LINK_ACT</span>
             </div>
           </div>
         </footer>
