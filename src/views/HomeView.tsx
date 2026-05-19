@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Ticker } from '../components/Ticker';
 import { ModuleHeader } from '../components/ModuleHeader';
-import { LogEntry } from '../types';
+import { GitHubCommitMetric, LogEntry } from '../types';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -34,7 +34,13 @@ const itemVariants = {
   }
 };
 
-export const HomeView = ({ logs }: { logs: LogEntry[] }) => (
+export const HomeView = ({
+  logs,
+  commitMetric,
+}: {
+  logs: LogEntry[];
+  commitMetric: GitHubCommitMetric;
+}) => (
   <motion.div 
     variants={containerVariants}
     initial="hidden"
@@ -92,7 +98,13 @@ export const HomeView = ({ logs }: { logs: LogEntry[] }) => (
             </div>
             <div className="flex justify-between items-center amber-text-glow">
               <span>COMMITS_PUSHED:</span>
-              <span className="text-amber-primary font-bold">842_SEQ</span>
+              <span className="text-amber-primary font-bold">
+                {commitMetric.status === 'ready'
+                  ? `${commitMetric.count.toLocaleString()}_SEQ`
+                  : commitMetric.status === 'error'
+                    ? 'SYNC_ERR'
+                    : 'SYNCING'}
+              </span>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ import {
   Linkedin
 } from 'lucide-react';
 
-import { LogEntry, View } from './types';
+import { GitHubCommitMetric, LogEntry, View } from './types';
 import { HomeView } from './views/HomeView';
 import { ProjectsView } from './views/ProjectsView';
 import { ContactView } from './views/ContactView';
@@ -26,9 +26,36 @@ const MemoHome = React.memo(HomeView);
 const MemoProjects = React.memo(ProjectsView);
 const MemoContact = React.memo(ContactView);
 
+const GITHUB_REPO = {
+  owner: 'VioletTides',
+  name: 'VioletTides.github.io',
+};
+
+function parseLastPage(linkHeader: string | null) {
+  if (!linkHeader) {
+    return null;
+  }
+
+  const lastMatch = linkHeader.match(/&page=(\d+)>; rel="last"/);
+  if (lastMatch) {
+    return Number(lastMatch[1]);
+  }
+
+  const nextMatch = linkHeader.match(/&page=(\d+)>; rel="next"/);
+  if (nextMatch) {
+    return Number(nextMatch[1]);
+  }
+
+  return null;
+}
+
 export default function App() {
   const [isBooting, setIsBooting] = useState(true);
   const [currentView, setCurrentView] = useState<View>('home');
+  const [commitMetric, setCommitMetric] = useState<GitHubCommitMetric>({
+    status: 'loading',
+    count: null,
+  });
 
   const [logs, setLogs] = useState<LogEntry[]>([
     { id: '1', timestamp: '08:42:01', message: 'INITIALIZING WEB_STACK_V2.0... [OK]', type: 'success' },
@@ -57,6 +84,51 @@ export default function App() {
       setLogs(prev => [...prev.slice(-10), newLog]);
     }, 4000);
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadCommitCount() {
+      try {
+        const response = await fetch(
+          `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}/commits?per_page=1`,
+          {
+            signal: controller.signal,
+            headers: {
+              Accept: 'application/vnd.github+json',
+            },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error(`GitHub API returned ${response.status}`);
+        }
+
+        const commits = (await response.json()) as unknown[];
+        const lastPage = parseLastPage(response.headers.get('link'));
+        const count = lastPage ?? commits.length;
+
+        setCommitMetric({
+          status: 'ready',
+          count,
+        });
+      } catch (error) {
+        if (controller.signal.aborted) {
+          return;
+        }
+
+        console.error('Failed to load commit count', error);
+        setCommitMetric({
+          status: 'error',
+          count: null,
+        });
+      }
+    }
+
+    loadCommitCount();
+
+    return () => controller.abort();
   }, []);
 
   return (
@@ -203,7 +275,7 @@ export default function App() {
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="flex-1 flex flex-col gap-6 min-h-0"
               >
-                {currentView === 'home' && <MemoHome logs={logs} />}
+                {currentView === 'home' && <MemoHome logs={logs} commitMetric={commitMetric} />}
                 {currentView === 'projects' && <MemoProjects />}
                 {currentView === 'contact' && <MemoContact />}
               </motion.div>

@@ -7,6 +7,11 @@ export interface LogEntry {
   type: 'info' | 'warn' | 'success';
 }
 
+export interface GitHubCommitMetric {
+  status: 'loading' | 'ready' | 'error';
+  count: number | null;
+}
+
 export interface Project {
   id: string;
   title: string;
