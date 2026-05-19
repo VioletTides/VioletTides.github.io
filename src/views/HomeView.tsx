@@ -175,10 +175,6 @@ export const HomeView = ({
               <span className="text-amber-primary/60 amber-text-glow">SESSION_AVG</span>
               <span className="px-1.5 bg-vfd-green/10 text-vfd-green/80 border border-vfd-green/20 green-text-glow tracking-wider">04:12M</span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-amber-primary/60 amber-text-glow">TRAFFIC_SRC</span>
-              <span className="px-1.5 bg-vfd-teal/5 text-vfd-teal/60 border border-vfd-teal/10 vfd-text-glow">DIRECT_LINK</span>
-            </div>
           </div>
         </div>
       </motion.div>
