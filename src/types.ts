@@ -19,9 +19,12 @@ export interface ProjectLink {
   href: string;
 }
 
-export interface ProjectContent {
+/** Shape stored in public/content/projects.json */
+export interface Project {
   id: string;
   slug: string;
+  /** When false, omitted from /projects index but still reachable by slug */
+  listed?: boolean;
   title: string;
   desc: string;
   overview: string;
@@ -35,31 +38,27 @@ export interface ProjectContent {
   highlights: string[];
   metrics: ProjectMetric[];
   links: ProjectLink[];
+  /** Resolved at load time from imageKey */
+  thumbnail: string;
 }
+
+export type GitHubMetricsErrorReason = 'rate_limit' | 'network' | 'api';
 
 export interface GitHubRepoMetrics {
   status: 'loading' | 'ready' | 'error';
-  count: number | null;
+  commitCount: number | null;
   lastPushIso: string | null;
   latestSha: string | null;
   topLanguage: string | null;
   deployStatus: 'success' | 'failure' | 'in_progress' | 'queued' | 'unknown';
+  errorReason?: GitHubMetricsErrorReason;
+  cached?: boolean;
 }
 
-export interface Project {
-  id: string;
-  slug: string;
-  title: string;
-  desc: string;
-  overview: string;
-  challenge: string;
-  outcome: string;
-  role: string;
-  period: string;
-  stack: string[];
-  status: ProjectStatus;
-  thumbnail: string;
-  highlights: string[];
-  metrics: ProjectMetric[];
-  links: ProjectLink[];
+export interface AnalyticsSnapshot {
+  status: 'idle' | 'loading' | 'ready' | 'unconfigured' | 'error';
+  visitors?: number;
+  pageviews?: number;
+  visitDurationSeconds?: number;
+  bounceRate?: number;
 }
