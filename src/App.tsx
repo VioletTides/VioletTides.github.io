@@ -174,7 +174,7 @@ export default function App() {
                 </a>
                 <div className="flex gap-2 justify-center">
                   <a 
-                    href="https://github.com/robin-anderson" 
+                    href="https://github.com/VioletTides" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-white/10 text-white/60 hover:border-amber-primary hover:text-amber-primary transition-all hover:bg-amber-primary/5 active:scale-95"
@@ -182,7 +182,7 @@ export default function App() {
                     <Github size={18} />
                   </a>
                   <a 
-                    href="https://linkedin.com/in/robin-anderson" 
+                    href="https://linkedin.com/in/robin34anderson" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center border border-white/10 text-white/60 hover:border-amber-primary hover:text-amber-primary transition-all hover:bg-amber-primary/5 active:scale-95"
@@ -195,7 +195,7 @@ export default function App() {
           </section>
 
           {/* Dynamic Content Modules */}
-          <section className="md:col-span-6 flex flex-col gap-6 min-h-0 relative order-2 pb-8">
+          <section className="md:col-span-6 flex flex-col gap-6 min-h-0 relative order-2">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentView}
@@ -219,13 +219,6 @@ export default function App() {
              <span className="text-[9px] text-white/30 tracking-widest font-bold uppercase">BUILD: 2024.11.04-STABLE</span>
              <span className="text-[9px] text-amber-primary/30 font-bold uppercase">HOST: CORE_TERMINAL_01</span>
           </div>
-
-          <div className="flex gap-6 md:gap-8">
-            <a href="https://github.com/robin-anderson" target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">GITHUB</a>
-            <a href="https://linkedin.com/in/robin-anderson" target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">LINKEDIN</a>
-            <a href={`${import.meta.env.BASE_URL}Robin-Anderson-Resume.pdf`} target="_blank" rel="noopener noreferrer" className="text-[9px] font-bold text-white/40 hover:text-amber-primary underline underline-offset-2 transition-colors">RESUME</a>
-          </div>
-
           <div className="flex gap-6">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] animate-pulse-live" />
