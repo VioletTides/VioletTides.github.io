@@ -57,7 +57,7 @@
 
 @layer base {
   body {
-    @apply bg-surface-dark text-white font-mono overflow-hidden;
+    @apply bg-surface-dark text-white font-mono overflow-x-hidden;
     background-image: linear-gradient(rgba(255, 176, 0, 0.02) 1px, transparent 1px);
     background-size: 100% 4px;
   }

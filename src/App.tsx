@@ -73,6 +73,11 @@ export default function App() {
   const mainRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
+    if (window.innerWidth < 768) {
+      window.scrollTo(0, 0);
+      return;
+    }
+
     if (mainRef.current) {
       mainRef.current.scrollTo(0, 0);
     }
@@ -225,7 +230,7 @@ export default function App() {
         {/* Main Content Area */}
         <main 
           ref={mainRef}
-          className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-6 p-4 md:p-6 min-h-0 overflow-y-auto md:overflow-hidden relative scroll-smooth bg-black/20"
+          className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-6 p-4 md:p-6 min-h-0 overflow-visible md:overflow-hidden relative scroll-smooth bg-black/20"
         >
           
           {/* Identity Section (Sidebar) */}
@@ -272,17 +277,17 @@ export default function App() {
                 <p className="text-base sm:text-lg text-white/90 blinking-cursor amber-text-glow font-sans font-medium">Embedded Systems Engineer</p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-2 pt-2 justify-center md:justify-start">
+              <div className="flex flex-row flex-wrap items-center gap-2 pt-2 justify-center md:justify-start">
                 <a
                   href={`${import.meta.env.BASE_URL}Robin-Anderson-Resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-amber-primary text-black font-bold text-[10px] sm:text-[11px] px-6 py-2.5 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center gap-2 amber-box-glow justify-center active:scale-95"
+                  className="bg-amber-primary text-black font-bold text-[10px] sm:text-[11px] px-4 sm:px-6 py-2.5 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center gap-2 amber-box-glow justify-center active:scale-95"
                 >
                   <Download size={14} />
                   EXTRACT_RESUME.PDF
                 </a>
-                <div className="flex gap-2 justify-center">
+                <div className="flex gap-2 justify-center shrink-0">
                   <a 
                     href="https://github.com/VioletTides" 
                     target="_blank" 
