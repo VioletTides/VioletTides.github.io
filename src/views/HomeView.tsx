@@ -45,7 +45,7 @@ export const HomeView = ({
     variants={containerVariants}
     initial="hidden"
     animate="visible"
-    className="flex-1 flex flex-col gap-6 min-h-0"
+    className="hidden md:flex flex-1 flex-col gap-6 min-h-0"
   >
     {/* Tickers */}
     <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4 shrink-0">

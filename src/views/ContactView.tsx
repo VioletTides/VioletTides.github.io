@@ -34,7 +34,7 @@ export const ContactView = () => {
       body: body || 'Hi Robin,\n\n',
     });
 
-    window.location.href = `mailto:robin34anderson+websitecontact@gmail.com?${params.toString()}`;
+    window.location.href = `mailto:robin34anderson@gmail.com?${params.toString()}`;
   };
 
   return (
@@ -99,12 +99,12 @@ export const ContactView = () => {
               href="mailto:robin34anderson+websitecontact@gmail.com"
               className="text-sm text-amber-primary/80 amber-text-glow font-mono break-all hover:text-amber-primary"
             >
-              robin34anderson+websitecontact@gmail.com
+              robin34anderson@gmail.com
             </a>
           </div>
           <div className="border border-white/5 p-4 space-y-1">
             <span className="text-[11px] text-white/30 uppercase tracking-widest block">Location_Ref</span>
-            <p className="text-sm text-amber-primary/80 amber-text-glow font-mono">Silicon Valley, Sector_04</p>
+            <p className="text-sm text-amber-primary/80 amber-text-glow font-mono">Toronto, ON</p>
           </div>
         </div>
       </div>
