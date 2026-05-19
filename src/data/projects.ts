@@ -1,19 +1,22 @@
 import { IMAGES } from '../constants/images';
-import { Project, ProjectContent } from '../types';
+import type { Project } from '../types';
 
 const PROJECT_IMAGE_MAP: Record<string, string> = {
+  TEMPLATE: IMAGES.PROJECTS.TEMPLATE,
   QUANTUM_NAV: IMAGES.PROJECTS.QUANTUM_NAV,
   GRID_SYNC: IMAGES.PROJECTS.GRID_SYNC,
   BIO_SENSOR: IMAGES.PROJECTS.BIO_SENSOR,
   NEURAL_EMBED: IMAGES.PROJECTS.NEURAL_EMBED,
 };
 
+type ProjectRecord = Omit<Project, 'thumbnail'>;
+
 let cachedProjects: Project[] | null = null;
 
-function mapProject(content: ProjectContent): Project {
+function mapProject(content: ProjectRecord): Project {
   return {
     ...content,
-    thumbnail: PROJECT_IMAGE_MAP[content.imageKey] ?? IMAGES.PROJECTS.QUANTUM_NAV,
+    thumbnail: PROJECT_IMAGE_MAP[content.imageKey] ?? IMAGES.PROJECTS.TEMPLATE,
   };
 }
 
@@ -27,7 +30,17 @@ export async function loadProjects(): Promise<Project[]> {
     throw new Error(`Failed to load projects.json: ${response.status}`);
   }
 
-  const rawProjects = (await response.json()) as ProjectContent[];
+  const rawProjects = (await response.json()) as ProjectRecord[];
   cachedProjects = rawProjects.map(mapProject);
   return cachedProjects;
+}
+
+export async function loadListedProjects(): Promise<Project[]> {
+  const projects = await loadProjects();
+  return projects.filter((project) => project.listed !== false);
+}
+
+export async function loadProjectBySlug(slug: string): Promise<Project | undefined> {
+  const projects = await loadProjects();
+  return projects.find((project) => project.slug === slug);
 }
