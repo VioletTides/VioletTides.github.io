@@ -27,10 +27,19 @@ export function isProjectDetailPath(pathname: string): boolean {
   return /^\/projects\/[^/]+/.test(pathname);
 }
 
-export function swipeTabOrder(): View[] {
-  return TAB_ORDER;
-}
-
-export function pathToSwipeView(pathname: string): View {
-  return pathToView(pathname);
+/** Stable key for mobile tab outlet animations (collapses detail slugs to /projects). */
+export function mainTabRouteKey(pathname: string): string {
+  if (pathname.startsWith('/projects/') && pathname !== '/projects') {
+    return pathname;
+  }
+  if (pathname === '/') {
+    return '/';
+  }
+  if (pathname.startsWith('/projects')) {
+    return '/projects';
+  }
+  if (pathname.startsWith('/contact')) {
+    return '/contact';
+  }
+  return pathname;
 }

@@ -1,23 +1,8 @@
 import { motion } from 'motion/react';
 import { useLocation, useOutlet } from 'react-router-dom';
 
+import { mainTabRouteKey } from '../constants/navigation';
 import type { AppOutletContext } from '../hooks/useAppOutlet';
-
-function outletRouteKey(pathname: string): string {
-  if (pathname.startsWith('/projects/') && pathname !== '/projects') {
-    return pathname;
-  }
-  if (pathname === '/') {
-    return '/';
-  }
-  if (pathname.startsWith('/projects')) {
-    return '/projects';
-  }
-  if (pathname.startsWith('/contact')) {
-    return '/contact';
-  }
-  return pathname;
-}
 
 export function SwipeableOutlet({
   reducedMotion,
@@ -31,7 +16,7 @@ export function SwipeableOutlet({
 }) {
   const location = useLocation();
   const outlet = useOutlet(outletContext);
-  const routeKey = outletRouteKey(location.pathname);
+  const routeKey = mainTabRouteKey(location.pathname);
 
   const useFade = mobileFade && !reducedMotion;
 
