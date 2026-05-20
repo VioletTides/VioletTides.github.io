@@ -1,12 +1,12 @@
 import { useCallback, useRef, type TouchEvent } from 'react';
 
-import { swipeTabOrder } from '../constants/navigation';
+import { TAB_ORDER } from '../constants/navigation';
 import type { View } from '../types';
 
 const SWIPE_THRESHOLD_PX = 50;
 const HORIZONTAL_DOMINANCE = 1.25;
 
-export type SwipeDirection = 'next' | 'prev';
+type SwipeDirection = 'next' | 'prev';
 
 export function useSwipeTabs({
   enabled,
@@ -17,7 +17,7 @@ export function useSwipeTabs({
   currentView: View;
   onNavigate: (view: View) => void;
 }) {
-  const tabOrder = swipeTabOrder();
+  const tabOrder = TAB_ORDER;
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const isHorizontalSwipe = useRef(false);
 

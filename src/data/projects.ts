@@ -1,7 +1,11 @@
 import { IMAGES } from '../constants/images';
 import type { Project } from '../types';
 
-const PROJECT_IMAGE_MAP: Record<string, string> = {
+import { PROJECT_IMAGE_KEYS, type ProjectImageKey } from './projectImageKeys';
+
+export { PROJECT_IMAGE_KEYS, type ProjectImageKey };
+
+const PROJECT_IMAGE_MAP: Record<ProjectImageKey, string> = {
   TEMPLATE: IMAGES.PROJECTS.TEMPLATE,
   QUANTUM_NAV: IMAGES.PROJECTS.QUANTUM_NAV,
   GRID_SYNC: IMAGES.PROJECTS.GRID_SYNC,
@@ -16,11 +20,14 @@ let cachedProjects: Project[] | null = null;
 function mapProject(content: ProjectRecord): Project {
   return {
     ...content,
-    thumbnail: PROJECT_IMAGE_MAP[content.imageKey] ?? IMAGES.PROJECTS.TEMPLATE,
+    thumbnail:
+      content.imageKey in PROJECT_IMAGE_MAP
+        ? PROJECT_IMAGE_MAP[content.imageKey as ProjectImageKey]
+        : IMAGES.PROJECTS.TEMPLATE,
   };
 }
 
-export async function loadProjects(): Promise<Project[]> {
+async function loadProjects(): Promise<Project[]> {
   if (cachedProjects) {
     return cachedProjects;
   }

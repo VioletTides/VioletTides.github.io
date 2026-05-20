@@ -34,9 +34,15 @@ export function AnalyticsPanel({ analytics }: { analytics: AnalyticsSnapshot }) 
 
       {analytics.status === 'unconfigured' && (
         <p className="text-white/50 font-mono leading-relaxed">
-          Set <span className="text-amber-primary/80">VITE_PLAUSIBLE_DOMAIN</span> and{' '}
-          <span className="text-amber-primary/80">VITE_PLAUSIBLE_API_KEY</span> for live stats, or{' '}
-          <span className="text-amber-primary/80">VITE_GA_MEASUREMENT_ID</span> for tracking only.
+          {import.meta.env.DEV ? (
+            <>
+              Set <span className="text-amber-primary/80">VITE_PLAUSIBLE_DOMAIN</span> and{' '}
+              <span className="text-amber-primary/80">VITE_PLAUSIBLE_API_KEY</span> for live stats, or{' '}
+              <span className="text-amber-primary/80">VITE_GA_MEASUREMENT_ID</span> for tracking only.
+            </>
+          ) : (
+            'Visitor metrics are not configured for this build.'
+          )}
         </p>
       )}
 

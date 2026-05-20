@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 
-/** Matches Tailwind `md:` breakpoint (min-width 768px). */
-export function useIsMobile(breakpointPx = 768): boolean {
+import { MD_BREAKPOINT_PX } from '../constants/breakpoints';
+
+/** Viewport below Tailwind `md:` (max-width 767px). */
+export function useIsMobile(breakpointPx = MD_BREAKPOINT_PX): boolean {
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined') {
       return false;

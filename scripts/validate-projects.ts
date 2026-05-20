@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { z } from 'zod';
 
+import { PROJECT_IMAGE_KEYS } from '../src/data/projectImageKeys';
+
 const projectSchema = z.object({
   id: z.string().min(1),
   slug: z.string().min(1),
@@ -43,11 +45,19 @@ const parsed = JSON.parse(raw) as unknown;
 const projects = projectsSchema.parse(parsed);
 
 const slugs = new Set<string>();
+const validImageKeys = new Set<string>(PROJECT_IMAGE_KEYS);
+
 for (const project of projects) {
   if (slugs.has(project.slug)) {
     throw new Error(`Duplicate project slug: ${project.slug}`);
   }
   slugs.add(project.slug);
+
+  if (!validImageKeys.has(project.imageKey)) {
+    throw new Error(
+      `Unknown imageKey "${project.imageKey}" in project "${project.slug}". Valid keys: ${PROJECT_IMAGE_KEYS.join(', ')}`,
+    );
+  }
 }
 
 console.log(`Validated ${projects.length} projects in ${filePath}`);
