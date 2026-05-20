@@ -1,5 +1,35 @@
 [
   {
+    "id": "01",
+    "slug": "study-timer",
+    "listed": true,
+    "title": "STUDY_TIMER",
+    "desc": "Retro-futurist focus clock with phosphor CRT display, session presets, and six deck themes. Runs in-browser with no backend.",
+    "overview": "A Vue 3 study session terminal styled like cassette-futurism control panels: countdown display, tape-segment progress, configuration popover, and theme profiles persisted in localStorage.",
+    "challenge": "Ship a polished solo-project timer that feels like a physical deck unit while staying readable, accessible, and deployable as a static demo on this portfolio site.",
+    "outcome": "Fully interactive timer with GitHub Pages hosting at /projects/timer/demo/, auto-saving preferences, tab-title telemetry, and semantic green/red controls separate from theme phosphor colors.",
+    "role": "Design & development",
+    "period": "2022-2026",
+    "stack": ["Vue 3", "Pinia", "Font Awesome", "CSS"],
+    "status": "STABLE",
+    "imageKey": "STUDY_TIMER",
+    "highlights": [
+      "Six CRT phosphor themes plus a custom accent profile built from CSS variables",
+      "CONFIG popover anchored to the header so the main chrono display stays visible",
+      "Session length presets, manual override, and factory reset with immediate apply",
+      "Production build scripted from the study-timer repo into public/projects/timer/demo/"
+    ],
+    "metrics": [
+      { "label": "THEMES", "value": "6 PROFILES" },
+      { "label": "RUNTIME", "value": "STATIC SPA" },
+      { "label": "BUILD", "value": "2022-11-06" }
+    ],
+    "links": [
+      { "label": "REPOSITORY", "href": "https://github.com/VioletTides/study-timer" },
+      { "label": "LIVE_DEMO", "href": "/projects/timer/demo/" }
+    ]
+  },
+  {
     "id": "00",
     "slug": "template",
     "listed": false,

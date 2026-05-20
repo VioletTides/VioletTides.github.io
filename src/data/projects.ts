@@ -7,6 +7,7 @@ export { PROJECT_IMAGE_KEYS, type ProjectImageKey };
 
 const PROJECT_IMAGE_MAP: Record<ProjectImageKey, string> = {
   TEMPLATE: IMAGES.PROJECTS.TEMPLATE,
+  STUDY_TIMER: IMAGES.PROJECTS.STUDY_TIMER,
 };
 
 type ProjectRecord = Omit<Project, 'thumbnail'>;
