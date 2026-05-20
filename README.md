@@ -69,12 +69,12 @@ In the repo: **Settings → Secrets and variables → Actions**.
 
 Client routes (React Router):
 
-- `/` — Home (desktop: dashboards + logs; mobile: profile header only, swipe between tabs)
+- `/` — Home (desktop: dashboards + logs; mobile: profile header only)
 - `/projects` — Project list (empty state when no listed projects)
 - `/projects/:slug` — Project detail (includes unlisted dev template by direct URL)
 - `/contact` — Contact form (`mailto:`)
 
-**Mobile:** swipe left/right between Home, Projects, and Contact; project detail disables swipe.
+**Mobile:** use the header tabs (HOME / PROJECTS / CONTACT) to change section.
 
 ## Deploy (GitHub Pages)
 

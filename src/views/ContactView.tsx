@@ -3,18 +3,15 @@ import { Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../constants/contact';
-import { useAppOutlet } from '../hooks/useAppOutlet';
 import { fadeItemVariants, fadeVariants } from '../motion/variants';
 import { motionVariants } from '../motion/useMotionConfig';
 
 export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean }) {
-  const { skipMountAnimation } = useAppOutlet();
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
 
   const containerVariants = motionVariants(reducedMotion, fadeVariants);
   const itemVariants = motionVariants(reducedMotion, fadeItemVariants);
-  const skipEnter = reducedMotion || skipMountAnimation;
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,7 +27,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
   return (
     <motion.div
       variants={containerVariants}
-      initial={skipEnter ? false : 'hidden'}
+      initial={reducedMotion ? false : 'hidden'}
       animate="visible"
       className="flex-1 flex flex-col gap-6 min-h-0"
     >

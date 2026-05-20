@@ -1,5 +1,3 @@
-export type View = 'home' | 'projects' | 'contact';
-
 export interface LogEntry {
   id: string;
   timestamp: string;

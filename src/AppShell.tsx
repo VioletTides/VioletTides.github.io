@@ -1,21 +1,14 @@
-import { useCallback, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useRef } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Cpu, Radio } from 'lucide-react';
 
 import { BootSequence } from './components/BootSequence';
 import { ProfileCard } from './components/ProfileCard';
 import { SwipeableOutlet } from './components/SwipeableOutlet';
-import {
-  isProjectDetailPath,
-  pathToView,
-  viewToPath,
-} from './constants/navigation';
 import { useBootGate } from './hooks/useBootGate';
 import { useIsMobile } from './hooks/useIsMobile';
 import { useReducedMotion } from './hooks/useReducedMotion';
-import { useSwipeTabs } from './hooks/useSwipeTabs';
-import type { View } from './types';
 import { pageMotionProps } from './motion/useMotionConfig';
 import { trackPageView } from './lib/analytics';
 
@@ -37,33 +30,12 @@ export function AppShell() {
   const reducedMotion = useReducedMotion();
   const { isBooting, completeBoot, skipBoot } = useBootGate(reducedMotion);
   const location = useLocation();
-  const navigate = useNavigate();
   const isMobile = useIsMobile();
   const mainRef = useRef<HTMLElement>(null);
 
   const isHome = location.pathname === '/';
-  const swipeView = pathToView(location.pathname);
 
-  const navigateToView = useCallback(
-    (view: View) => {
-      navigate(viewToPath(view));
-    },
-    [navigate],
-  );
-
-  const swipeEnabled =
-    isMobile && !isBooting && !isProjectDetailPath(location.pathname);
-
-  const swipe = useSwipeTabs({
-    enabled: swipeEnabled,
-    currentView: swipeView,
-    onNavigate: navigateToView,
-  });
-
-  const outletContext = {
-    reducedMotion,
-    skipMountAnimation: swipeEnabled,
-  };
+  const outletContext = { reducedMotion };
 
   useEffect(() => {
     trackPageView(location.pathname + location.search);
@@ -129,12 +101,8 @@ export function AppShell() {
 
             <main
               ref={mainRef}
-              className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-6 p-4 md:p-6 min-h-0 overflow-visible md:overflow-hidden relative scroll-smooth bg-black/20 touch-pan-y"
-              onTouchStart={swipe.onTouchStart}
-              onTouchMove={swipe.onTouchMove}
-              onTouchEnd={swipe.onTouchEnd}
-              onTouchCancel={swipe.onTouchCancel}
-              aria-label="Main content. On mobile, swipe left or right to change section."
+              className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-6 p-4 md:p-6 min-h-0 overflow-visible md:overflow-hidden relative scroll-smooth bg-black/20"
+              aria-label="Main content"
             >
               <section className="hidden md:flex md:col-span-3 flex-col gap-6 order-1 pb-4 md:pb-6">
                 <div
@@ -149,11 +117,7 @@ export function AppShell() {
                 aria-live="polite"
                 aria-atomic="true"
               >
-                <SwipeableOutlet
-                  reducedMotion={reducedMotion}
-                  mobileFade={isMobile && swipeEnabled}
-                  outletContext={outletContext}
-                />
+                <SwipeableOutlet outletContext={outletContext} />
               </section>
             </main>
 
@@ -166,7 +130,8 @@ export function AppShell() {
               </div>
               <div className="flex gap-6">
                 <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] ${
+                  <div
+                    className={`w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] ${
                       reducedMotion ? '' : 'animate-pulse-live'
                     }`}
                   />
