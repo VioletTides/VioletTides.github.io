@@ -48,11 +48,15 @@ export interface GitHubRepoMetrics {
   lastPushIso: string | null;
   latestSha: string | null;
   topLanguage: string | null;
+  starCount: number | null;
+  openIssuesCount: number | null;
   deployStatus: 'success' | 'failure' | 'in_progress' | 'queued' | 'unknown';
   errorReason?: GitHubMetricsErrorReason;
   cached?: boolean;
 }
 
-export interface AnalyticsSnapshot {
-  status: 'idle' | 'unconfigured' | 'active';
+/** Live stats for the current browser session (shown in VISITOR_TELEMETRY). */
+export interface SessionTelemetry {
+  sessionId: string;
+  durationLabel: string;
 }
