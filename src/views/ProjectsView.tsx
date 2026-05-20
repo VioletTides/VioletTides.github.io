@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ChevronRight, LoaderCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
+import { PROJECTS_PAGE_COPY } from '../constants/siteCopy';
 import { loadListedProjects } from '../data/projects';
 import { fadeItemVariants, fadeVariants } from '../motion/variants';
 import { motionVariants } from '../motion/useMotionConfig';
@@ -56,11 +57,11 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         <p className="text-[11px] text-amber-primary/60 mt-1 uppercase tracking-widest">
           {status === 'ready'
             ? projects.length > 0
-              ? `Scanning internal data stores... ${projects.length} matches found.`
-              : 'Index online — no public entries deployed.'
+              ? PROJECTS_PAGE_COPY.count(projects.length)
+              : PROJECTS_PAGE_COPY.empty
             : status === 'error'
-              ? 'Project archive temporarily offline.'
-              : 'Scanning internal data stores...'}
+              ? PROJECTS_PAGE_COPY.error
+              : PROJECTS_PAGE_COPY.loading}
         </p>
       </motion.div>
 
@@ -79,9 +80,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
             <p className="text-[11px] uppercase tracking-[0.25em] text-vfd-red red-text-glow">
               Archive Offline
             </p>
-            <p className="mt-3 text-sm text-white/60 font-mono">
-              Unable to load the project archive. Please try again later.
-            </p>
+            <p className="mt-3 text-sm text-white/60 font-mono">{PROJECTS_PAGE_COPY.error}</p>
           </div>
         </div>
       )}
@@ -93,10 +92,10 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         >
           <motion.div variants={itemVariants}>
             <p className="text-[11px] uppercase tracking-[0.3em] text-amber-primary/80 amber-text-glow">
-              Sector Under Construction
+              {PROJECTS_PAGE_COPY.empty}
             </p>
             <p className="mt-3 text-sm text-white/60 font-mono max-w-md leading-relaxed">
-              Case studies are being prepared. Check back soon.
+              {PROJECTS_PAGE_COPY.emptyDetail}
             </p>
           </motion.div>
         </motion.div>

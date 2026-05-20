@@ -1,6 +1,6 @@
 # Robin Anderson — Portfolio
 
-Terminal-inspired portfolio site for Robin Anderson (embedded systems engineer). Built with React 19, Vite 6, Tailwind CSS 4, and Motion.
+My portfolio site (embedded systems). Built with React 19, Vite 6, Tailwind CSS 4, and Motion.
 
 Live site: [robinn.ca](https://robinn.ca/)
 
@@ -35,7 +35,7 @@ Copy `.env.example` to `.env.local` for local overrides.
 | `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 — **tracks page views when set** | Actions variable or `.env.local` |
 | `VITE_GITHUB_TOKEN` | GitHub PAT for repo metrics rate limits | Actions **secret** only |
 
-Without `VITE_GA_MEASUREMENT_ID`, no analytics script is loaded. The desktop Home telemetry panel shows whether GA is active for the current build.
+Without `VITE_GA_MEASUREMENT_ID`, no analytics script is loaded. The home page still shows your session ID and uptime in the visitor panel.
 
 ### GitHub Actions (production deploy)
 

@@ -54,7 +54,7 @@ export interface GitHubRepoMetrics {
   cached?: boolean;
 }
 
-/** Live stats for the current browser session (shown in VISITOR_TELEMETRY). */
+/** Live stats for the visitor's browser session (VISITOR_TELEMETRY panel). */
 export interface SessionTelemetry {
   sessionId: string;
   durationLabel: string;

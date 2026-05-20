@@ -3,6 +3,7 @@ import { Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../constants/contact';
+import { CONTACT_PAGE_COPY } from '../constants/siteCopy';
 import { OPERATOR_LOCATION } from '../constants/operator';
 import { fadeItemVariants, fadeVariants } from '../motion/variants';
 import { motionVariants } from '../motion/useMotionConfig';
@@ -18,7 +19,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
     event.preventDefault();
 
     const params = new URLSearchParams({
-      subject: subject || 'Website inquiry',
+      subject: subject || CONTACT_PAGE_COPY.defaultSubject,
       body: body || 'Hi Robin,\n\n',
     });
 
@@ -41,7 +42,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
             COMM_TERMINAL::ESTABLISH
           </h2>
           <p className="text-[11px] text-amber-primary/60 mt-1 uppercase tracking-widest">
-            Secure handshake required for outbound transmission.
+            {CONTACT_PAGE_COPY.subtitle}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-3 bg-black/40 px-3 py-2 border border-vfd-green/20">
@@ -74,7 +75,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
                 type="text"
                 value={subject}
                 onChange={(event) => setSubject(event.target.value)}
-                placeholder="Transmission header..."
+                placeholder={CONTACT_PAGE_COPY.subjectPlaceholder}
                 className="bg-transparent border-none text-sm w-full placeholder:text-white/20 font-mono"
               />
             </div>
@@ -89,7 +90,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
               rows={4}
               value={body}
               onChange={(event) => setBody(event.target.value)}
-              placeholder="Encryption sequence... Input text data now."
+              placeholder={CONTACT_PAGE_COPY.bodyPlaceholder}
               className="bg-white/5 border border-white/10 p-4 text-sm text-amber-primary w-full placeholder:text-white/20 font-mono focus:border-amber-primary/30 transition-colors resize-none"
             />
           </div>
