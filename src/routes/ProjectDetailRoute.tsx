@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { LoaderCircle } from 'lucide-react';
-
 import { loadProjectBySlug } from '../data/projects';
+import { RouteLoadingFallback } from '../components/RouteLoadingFallback';
 import { useAppOutlet } from '../hooks/useAppOutlet';
 import { ProjectDetailView } from '../views/ProjectDetailView';
 import type { Project } from '../types';
@@ -46,14 +45,7 @@ export function ProjectDetailRoute() {
   }, [slug]);
 
   if (status === 'loading') {
-    return (
-      <div className="flex-1 flex items-center justify-center border border-white/10 bg-black/30">
-        <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-amber-primary/70">
-          <LoaderCircle size={14} className="animate-spin" />
-          Loading Project
-        </div>
-      </div>
-    );
+    return <RouteLoadingFallback label="Loading Project" />;
   }
 
   if (status === 'not_found' || !project) {
