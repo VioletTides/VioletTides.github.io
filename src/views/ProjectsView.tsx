@@ -4,20 +4,17 @@ import { ChevronRight, LoaderCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { loadListedProjects } from '../data/projects';
-import { useAppOutlet } from '../hooks/useAppOutlet';
 import { fadeItemVariants, fadeVariants } from '../motion/variants';
 import { motionVariants } from '../motion/useMotionConfig';
 import { StatusBadge } from '../components/StatusBadge';
 import type { Project } from '../types';
 
 export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolean }) {
-  const { skipMountAnimation } = useAppOutlet();
   const [projects, setProjects] = useState<Project[]>([]);
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
 
   const containerVariants = motionVariants(reducedMotion, fadeVariants);
   const itemVariants = motionVariants(reducedMotion, fadeItemVariants);
-  const skipEnter = reducedMotion || skipMountAnimation;
 
   useEffect(() => {
     let active = true;
@@ -45,7 +42,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
   return (
     <motion.div
       variants={containerVariants}
-      initial={skipEnter ? false : 'hidden'}
+      initial={reducedMotion ? false : 'hidden'}
       animate="visible"
       className="flex-1 flex flex-col gap-6 min-h-0"
     >
