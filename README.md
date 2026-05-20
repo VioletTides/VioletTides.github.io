@@ -1,8 +1,6 @@
 # Robin Anderson — Portfolio
 
-My portfolio site (embedded systems). Built with React 19, Vite 6, Tailwind CSS 4, and Motion.
-
-Live site: [robinn.ca](https://robinn.ca/)
+My personal site at [robinn.ca](https://robinn.ca/) — I built it with React 19, Vite 6, Tailwind CSS 4, and Motion.
 
 ## Quick start
 

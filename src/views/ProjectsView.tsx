@@ -52,7 +52,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         className="bg-amber-primary/10 border border-amber-primary/30 p-4 amber-text-glow"
       >
         <h2 className="text-xl font-sans font-bold text-amber-primary tracking-tight uppercase">
-          PROJECTS_LIBRARY::INIT
+          {PROJECTS_PAGE_COPY.heading}
         </h2>
         <p className="text-[11px] text-amber-primary/60 mt-1 uppercase tracking-widest">
           {status === 'ready'
@@ -78,7 +78,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         <div className="flex-1 flex items-center justify-center border border-vfd-red/20 bg-black/30 p-6 text-center">
           <div>
             <p className="text-[11px] uppercase tracking-[0.25em] text-vfd-red red-text-glow">
-              Archive Offline
+              Load failed
             </p>
             <p className="mt-3 text-sm text-white/60 font-mono">{PROJECTS_PAGE_COPY.error}</p>
           </div>

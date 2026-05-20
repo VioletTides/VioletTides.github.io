@@ -39,7 +39,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
       >
         <div>
           <h2 className="text-xl font-sans font-bold text-amber-primary tracking-tight uppercase">
-            COMM_TERMINAL::ESTABLISH
+            {CONTACT_PAGE_COPY.heading}
           </h2>
           <p className="text-[11px] text-amber-primary/60 mt-1 uppercase tracking-widest">
             {CONTACT_PAGE_COPY.subtitle}
@@ -100,7 +100,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
             className="bg-amber-primary text-black font-bold text-sm px-8 py-3 uppercase hover:brightness-110 transition-all border border-amber-primary flex items-center justify-center gap-2 amber-box-glow w-full sm:w-auto"
           >
             <Zap size={14} />
-            SEND_TRANSMISSION
+            {CONTACT_PAGE_COPY.sendLabel}
           </button>
         </form>
 
