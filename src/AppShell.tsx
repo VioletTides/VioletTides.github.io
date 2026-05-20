@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Cpu, Radio } from 'lucide-react';
 
 import { BootSequence } from './components/BootSequence';
-import { OperatorFocusBrief } from './components/OperatorFocusBrief';
 import { ProfileCard } from './components/ProfileCard';
 import { SwipeableOutlet } from './components/SwipeableOutlet';
 import { useBootGate } from './hooks/useBootGate';
@@ -112,7 +111,6 @@ export function AppShell() {
                   className={`flex flex-col gap-4 transition-all duration-500 ${!isHome ? 'md:opacity-40 md:hover:opacity-100' : ''}`}
                 >
                   <ProfileCard reducedMotion={reducedMotion} variant="sidebar" />
-                  <OperatorFocusBrief />
                 </div>
               </section>
 

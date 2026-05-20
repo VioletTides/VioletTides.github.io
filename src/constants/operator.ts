@@ -3,13 +3,6 @@ export const OPERATOR_TITLE = 'Embedded Systems Engineer';
 export const OPERATOR_LOCATION = 'Toronto, ON';
 export const OPERATOR_TIMEZONE = 'America/Toronto';
 
-/** Readable prose under the profile card (FOCUS_BRIEF). */
-export const OPERATOR_FOCUS_LINES = [
-  'Computer Engineering student at McMaster University, focused on embedded and systems-level work.',
-  'Three co-op placements completed, including two with defence-sector organizations and one in industry.',
-  'Experienced across hardware and software—from firmware development and lab validation to host-side tooling.',
-] as const;
-
 export type ToolchainCategory = 'LANGUAGES' | 'DESIGN' | 'PLATFORMS' | 'PROTOCOLS' | 'DEV';
 
 export const ACTIVE_TOOLCHAIN: ReadonlyArray<{ name: string; category: ToolchainCategory }> = [
