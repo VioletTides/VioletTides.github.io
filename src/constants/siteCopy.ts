@@ -1,14 +1,12 @@
-/**
- * First-person site copy. Keep `index.html` meta tags in sync with SITE_* constants below.
- */
+/** Site-wide copy, including link-preview meta (injected into index.html at build). */
 
 export const SITE_TITLE = 'Robin Anderson // PORTFOLIO_V1.0';
 
 export const SITE_META_DESCRIPTION =
-  'I built this site. Embedded systems projects, my resume, and how to reach me.';
+  'I built robinn.ca. Embedded systems projects, my resume, and how to reach me.';
 
 export const SITE_OG_DESCRIPTION =
-  'Personal site I made. My projects, resume, and contact.';
+  'I built this site myself. My embedded projects, resume, and contact info.';
 
 export const SITE_TWITTER_DESCRIPTION = SITE_OG_DESCRIPTION;
 
