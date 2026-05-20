@@ -2,13 +2,11 @@
 
 export const SITE_TITLE = 'Robin Anderson // PORTFOLIO_V1.0';
 
-export const SITE_META_DESCRIPTION =
-  'I built robinn.ca. Embedded systems projects, my resume, and how to reach me.';
+export const SITE_META_DESCRIPTION = "Robin Anderson's portfolio";
 
-export const SITE_OG_DESCRIPTION =
-  'I built this site myself. My embedded projects, resume, and contact info.';
+export const SITE_OG_DESCRIPTION = "Robin Anderson's portfolio";
 
-export const SITE_TWITTER_DESCRIPTION = SITE_OG_DESCRIPTION;
+export const SITE_TWITTER_DESCRIPTION = "Robin Anderson's portfolio";
 
 export const PROJECTS_PAGE_COPY = {
   heading: 'Projects',
