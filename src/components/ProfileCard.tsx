@@ -16,7 +16,7 @@ export function ProfileCard({ reducedMotion, variant }: ProfileCardProps) {
   const isMobile = variant === 'mobile';
 
   return (
-    <div className={isMobile ? 'flex flex-col gap-4' : 'space-y-4 text-center md:text-left'}>
+    <div className={isMobile ? 'flex flex-col gap-4' : 'space-y-3 text-center md:text-left'}>
       <div
         className={
           isMobile
@@ -25,7 +25,7 @@ export function ProfileCard({ reducedMotion, variant }: ProfileCardProps) {
         }
       >
         <div className="bg-surface-dark border border-white/10 p-1 relative">
-          <div className="aspect-square relative overflow-hidden bg-black border border-white/10">
+          <div className="aspect-square relative overflow-hidden isolate bg-black border border-white/10">
             <img
               src={IMAGES.PROFILE}
               alt="Robin Anderson"
@@ -34,23 +34,18 @@ export function ProfileCard({ reducedMotion, variant }: ProfileCardProps) {
               loading="eager"
               decoding="async"
               fetchPriority="high"
-              className="w-full h-full object-cover brightness-110 contrast-110"
+              className="relative z-0 w-full h-full object-cover brightness-110 contrast-110"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = PROFILE_FALLBACK;
               }}
             />
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
-            {!reducedMotion && (
-              <div className="absolute inset-0 pointer-events-none opacity-20">
-                <div className="absolute top-0 left-0 w-full h-[20%] bg-gradient-to-b from-transparent via-amber-primary/30 to-transparent animate-[ticker_4s_linear_infinite]" />
-              </div>
-            )}
+            <div className="pointer-events-none absolute inset-0 z-[1] bg-black/20" />
+            <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/60 via-transparent to-black/20" />
             <div
               className={
                 isMobile
-                  ? 'absolute bottom-3 left-3 bg-black/80 backdrop-blur-md border border-amber-primary/50 px-2 py-1 max-w-[calc(100%-1.5rem)]'
-                  : 'absolute bottom-4 left-4 bg-black/80 backdrop-blur-md border border-amber-primary/50 px-3 py-1 max-w-[calc(100%-2rem)]'
+                  ? 'absolute bottom-3 left-3 z-10 bg-black/80 backdrop-blur-md border border-amber-primary/50 px-2 py-1 max-w-[calc(100%-1.5rem)]'
+                  : 'absolute bottom-4 left-4 z-10 bg-black/80 backdrop-blur-md border border-amber-primary/50 px-3 py-1 max-w-[calc(100%-2rem)]'
               }
             >
               <span

@@ -59,7 +59,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
               ? `Scanning internal data stores... ${projects.length} matches found.`
               : 'Index online — no public entries deployed.'
             : status === 'error'
-              ? 'Project index unavailable. Check local content manifest.'
+              ? 'Project archive temporarily offline.'
               : 'Scanning internal data stores...'}
         </p>
       </motion.div>
@@ -68,7 +68,7 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         <div className="flex-1 flex items-center justify-center border border-white/10 bg-black/30">
           <div className="flex items-center gap-3 text-[11px] uppercase tracking-[0.25em] text-amber-primary/70">
             <LoaderCircle size={14} className="animate-spin" />
-            Loading Project Manifest
+            Loading Projects
           </div>
         </div>
       )}
@@ -77,10 +77,10 @@ export function ProjectsView({ reducedMotion = false }: { reducedMotion?: boolea
         <div className="flex-1 flex items-center justify-center border border-vfd-red/20 bg-black/30 p-6 text-center">
           <div>
             <p className="text-[11px] uppercase tracking-[0.25em] text-vfd-red red-text-glow">
-              Manifest Error
+              Archive Offline
             </p>
             <p className="mt-3 text-sm text-white/60 font-mono">
-              Unable to load `public/content/projects.json`.
+              Unable to load the project archive. Please try again later.
             </p>
           </div>
         </div>

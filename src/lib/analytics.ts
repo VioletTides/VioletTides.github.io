@@ -1,5 +1,3 @@
-import type { AnalyticsSnapshot } from '../types';
-
 const GA_ID = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
 let trackingInitialized = false;
@@ -28,17 +26,6 @@ export function trackPageView(path: string): void {
   if (GA_ID && typeof window.gtag === 'function') {
     window.gtag('config', GA_ID, { page_path: path });
   }
-}
-
-export function isAnalyticsConfigured(): boolean {
-  return Boolean(GA_ID);
-}
-
-export function getAnalyticsSnapshot(): AnalyticsSnapshot {
-  if (!isAnalyticsConfigured()) {
-    return { status: 'unconfigured' };
-  }
-  return { status: 'active' };
 }
 
 declare global {

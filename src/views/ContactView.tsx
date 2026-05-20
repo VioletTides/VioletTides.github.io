@@ -3,6 +3,7 @@ import { Zap } from 'lucide-react';
 import { motion } from 'motion/react';
 
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '../constants/contact';
+import { OPERATOR_LOCATION } from '../constants/operator';
 import { fadeItemVariants, fadeVariants } from '../motion/variants';
 import { motionVariants } from '../motion/useMotionConfig';
 
@@ -114,7 +115,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
           </div>
           <div className="border border-white/5 p-4 space-y-1">
             <span className="text-[11px] text-white/30 uppercase tracking-widest block">Location_Ref</span>
-            <p className="text-sm text-amber-primary/80 amber-text-glow font-mono">Toronto, ON</p>
+            <p className="text-sm text-amber-primary/80 amber-text-glow font-mono">{OPERATOR_LOCATION}</p>
           </div>
         </div>
       </motion.div>

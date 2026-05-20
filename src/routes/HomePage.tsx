@@ -1,4 +1,3 @@
-import { useAnalyticsSnapshot } from '../hooks/useAnalyticsSnapshot';
 import { useAppOutlet } from '../hooks/useAppOutlet';
 import { useIsMobile } from '../hooks/useIsMobile';
 import { useRepoMetrics } from '../hooks/useRepoMetrics';
@@ -7,13 +6,12 @@ import { HomeView } from '../views/HomeView';
 import { MobileHomeView } from '../views/MobileHomeView';
 
 export function HomePage() {
-  const { reducedMotion } = useAppOutlet();
+  const { reducedMotion, sessionTelemetry } = useAppOutlet();
   const isMobile = useIsMobile();
   const desktopPanels = !isMobile;
 
   const logs = useSystemLogs(reducedMotion, desktopPanels);
   const repoMetrics = useRepoMetrics(desktopPanels);
-  const analytics = useAnalyticsSnapshot(desktopPanels);
 
   return (
     <>
@@ -21,7 +19,7 @@ export function HomePage() {
       <HomeView
         logs={logs}
         repoMetrics={repoMetrics}
-        analytics={analytics}
+        sessionTelemetry={sessionTelemetry}
         reducedMotion={reducedMotion}
       />
     </>

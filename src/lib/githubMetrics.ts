@@ -45,7 +45,12 @@ export function readCachedGitHubMetrics(): GitHubRepoMetrics | null {
       return null;
     }
 
-    return { ...parsed.metrics, cached: true };
+    return {
+      ...parsed.metrics,
+      starCount: parsed.metrics.starCount ?? null,
+      openIssuesCount: parsed.metrics.openIssuesCount ?? null,
+      cached: true,
+    };
   } catch {
     return null;
   }
@@ -144,12 +149,18 @@ export async function fetchGitHubRepoMetrics(
         lastPushIso: null,
         latestSha: null,
         topLanguage: null,
+        starCount: null,
+        openIssuesCount: null,
         deployStatus: 'unknown',
         errorReason: errorReasonFromResponse(failed),
       };
     }
 
-    const repo = (await repoResponse.json()) as { pushed_at?: string };
+    const repo = (await repoResponse.json()) as {
+      pushed_at?: string;
+      stargazers_count?: number;
+      open_issues_count?: number;
+    };
     const commits = (await commitsResponse.json()) as Array<{ sha?: string }>;
     const languages = (await languagesResponse.json()) as Record<string, number>;
     const deploys = (await deploysResponse.json()) as {
@@ -175,6 +186,8 @@ export async function fetchGitHubRepoMetrics(
       lastPushIso: repo.pushed_at ?? null,
       latestSha: commits[0]?.sha?.slice(0, 7) ?? null,
       topLanguage: topLanguageEntry?.[0] ?? null,
+      starCount: repo.stargazers_count ?? null,
+      openIssuesCount: repo.open_issues_count ?? null,
       deployStatus,
     };
 
@@ -192,6 +205,8 @@ export async function fetchGitHubRepoMetrics(
       lastPushIso: null,
       latestSha: null,
       topLanguage: null,
+      starCount: null,
+      openIssuesCount: null,
       deployStatus: 'unknown',
       errorReason: 'network',
     };
