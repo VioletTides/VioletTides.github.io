@@ -21,7 +21,7 @@ export function formatCommitCount(metrics: GitHubRepoMetrics): string {
 
 export function formatMetricsErrorLabel(metrics: GitHubRepoMetrics): string {
   if (metrics.errorReason === 'rate_limit') {
-    return 'UPLINK CONGESTED — RETRY LATER';
+    return 'UPLINK CONGESTED. RETRY LATER';
   }
   if (metrics.errorReason === 'network') {
     return 'NETWORK LINK UNSTABLE';

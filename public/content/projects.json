@@ -14,9 +14,9 @@
     "status": "ACTIVE",
     "imageKey": "TEMPLATE",
     "highlights": [
-      "Bullet one — key technical or product outcome",
-      "Bullet two — architecture or process highlight",
-      "Bullet three — impact or reliability note"
+      "Bullet one: key technical or product outcome",
+      "Bullet two: architecture or process highlight",
+      "Bullet three: impact or reliability note"
     ],
     "metrics": [
       { "label": "METRIC_ONE", "value": "VALUE" },

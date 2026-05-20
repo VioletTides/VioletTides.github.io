@@ -1,12 +1,12 @@
-# Robin Anderson — Portfolio
+# Robin Anderson | Portfolio
 
-My personal site at [robinn.ca](https://robinn.ca/) — I built it with React 19, Vite 6, Tailwind CSS 4, and Motion.
+My personal site at [robinn.ca](https://robinn.ca/). I built it with React 19, Vite 6, Tailwind CSS 4, and Motion.
 
 ## Quick start
 
 ```bash
 npm install
-cp .env.example .env.local   # optional — see Environment variables
+cp .env.example .env.local   # optional: see Environment variables
 npm run dev
 ```
 
@@ -30,7 +30,7 @@ Copy `.env.example` to `.env.local` for local overrides.
 
 | Variable | Purpose | Where to set |
 |----------|---------|----------------|
-| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 — **tracks page views when set** | Actions variable or `.env.local` |
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4; **tracks page views when set** | Actions variable or `.env.local` |
 | `VITE_GITHUB_TOKEN` | GitHub PAT for repo metrics rate limits | Actions **secret** only |
 
 Without `VITE_GA_MEASUREMENT_ID`, no analytics script is loaded. The home page still shows your session ID and uptime in the visitor panel.
@@ -39,11 +39,11 @@ Without `VITE_GA_MEASUREMENT_ID`, no analytics script is loaded. The home page s
 
 In the repo: **Settings → Secrets and variables → Actions**.
 
-**Variables** (repository variables — safe to expose in the built site):
+**Variables** (repository variables; safe to expose in the built site):
 
 | Name | Example / notes |
 |------|-----------------|
-| `VITE_GA_MEASUREMENT_ID` | Your GA4 ID (e.g. `G-69CTLC057Y`) — enables GA on all pages |
+| `VITE_GA_MEASUREMENT_ID` | Your GA4 ID (e.g. `G-69CTLC057Y`) enables GA on all pages |
 
 **Secrets** (never committed; injected at build time):
 
@@ -63,10 +63,10 @@ In the repo: **Settings → Secrets and variables → Actions**.
 
 Client routes (React Router):
 
-- `/` — Home (desktop: dashboards + logs; mobile: profile header only)
-- `/projects` — Project list (empty state when no listed projects)
-- `/projects/:slug` — Project detail (includes unlisted dev template by direct URL)
-- `/contact` — Contact form (`mailto:`)
+- `/`: Home (desktop: dashboards + logs; mobile: profile header only)
+- `/projects`: Project list (empty state when no listed projects)
+- `/projects/:slug`: Project detail (includes unlisted dev template by direct URL)
+- `/contact`: Contact form (`mailto:`)
 
 **Mobile:** use the header tabs (HOME / PROJECTS / CONTACT) to change section.
 

@@ -8,7 +8,7 @@ export const SITE_META_DESCRIPTION =
   'I built this site. Embedded systems projects, my resume, and how to reach me.';
 
 export const SITE_OG_DESCRIPTION =
-  'Personal site I made — my projects, resume, and contact.';
+  'Personal site I made. My projects, resume, and contact.';
 
 export const SITE_TWITTER_DESCRIPTION = SITE_OG_DESCRIPTION;
 
@@ -23,7 +23,7 @@ export const PROJECTS_PAGE_COPY = {
 
 export const CONTACT_PAGE_COPY = {
   heading: 'Contact',
-  subtitle: 'Send me a message — this opens your mail app.',
+  subtitle: 'Send me a message. This opens your mail app.',
   subjectPlaceholder: 'Subject',
   bodyPlaceholder: 'What do you want to talk about?',
   defaultSubject: 'Message from robinn.ca',
