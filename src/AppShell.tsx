@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Terminal, Cpu, Radio } from 'lucide-react';
 
 import { BootSequence } from './components/BootSequence';
+import { OperatorFocusBrief } from './components/OperatorFocusBrief';
 import { ProfileCard } from './components/ProfileCard';
 import { SwipeableOutlet } from './components/SwipeableOutlet';
 import { useBootGate } from './hooks/useBootGate';
 import { useIsMobile } from './hooks/useIsMobile';
 import { useReducedMotion } from './hooks/useReducedMotion';
+import { useSessionTelemetry } from './hooks/useSessionTelemetry';
 import { pageMotionProps } from './motion/useMotionConfig';
 import { trackPageView } from './lib/analytics';
 
@@ -34,8 +36,9 @@ export function AppShell() {
   const mainRef = useRef<HTMLElement>(null);
 
   const isHome = location.pathname === '/';
+  const sessionTelemetry = useSessionTelemetry();
 
-  const outletContext = { reducedMotion };
+  const outletContext = { reducedMotion, sessionTelemetry };
 
   useEffect(() => {
     trackPageView(location.pathname + location.search);
@@ -101,19 +104,20 @@ export function AppShell() {
 
             <main
               ref={mainRef}
-              className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-6 p-4 md:p-6 min-h-0 overflow-visible md:overflow-hidden relative scroll-smooth bg-black/20"
+              className="flex-1 flex flex-col md:grid md:grid-cols-9 gap-4 p-4 md:p-5 min-h-0 overflow-visible md:overflow-hidden relative scroll-smooth bg-black/20"
               aria-label="Main content"
             >
-              <section className="hidden md:flex md:col-span-3 flex-col gap-6 order-1 pb-4 md:pb-6">
+              <section className="hidden md:flex md:col-span-3 flex-col gap-4 order-1 pb-4 md:pb-6 min-h-0 relative z-20">
                 <div
-                  className={`transition-all duration-500 ${!isHome ? 'md:opacity-40 md:hover:opacity-100' : ''}`}
+                  className={`flex flex-col gap-4 transition-all duration-500 ${!isHome ? 'md:opacity-40 md:hover:opacity-100' : ''}`}
                 >
                   <ProfileCard reducedMotion={reducedMotion} variant="sidebar" />
+                  <OperatorFocusBrief />
                 </div>
               </section>
 
               <section
-                className="flex-1 md:col-span-6 flex flex-col gap-6 min-h-0 relative order-2 pb-4 md:pb-6 overflow-x-hidden"
+                className="flex-1 md:col-span-6 flex flex-col gap-4 min-h-0 relative order-2 pb-4 md:pb-5 overflow-hidden isolate"
                 aria-live="polite"
                 aria-atomic="true"
               >

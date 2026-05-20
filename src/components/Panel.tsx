@@ -15,7 +15,7 @@ export function Panel({
   bodyClassName?: string;
 }) {
   return (
-    <div className={`bg-black/40 border border-white/10 flex flex-col relative ${className}`}>
+    <div className={`bg-black/40 border border-white/10 flex flex-col relative min-h-0 ${className}`}>
       <div className="absolute inset-0 crt-bg-effect opacity-20 pointer-events-none" />
       <ModuleHeader title={title} right={right} />
       <div className={`${bodyClassName} z-10`}>{children}</div>

@@ -12,7 +12,7 @@ export function SwipeableOutlet({ outletContext }: { outletContext: AppOutletCon
     <div className="flex-1 flex flex-col min-h-0 relative overflow-hidden">
       <div
         key={routeKey}
-        className="flex-1 flex flex-col min-h-0 w-full overflow-y-auto overflow-x-hidden"
+        className="flex-1 flex flex-col min-h-0 w-full overflow-x-hidden overflow-y-auto md:overflow-hidden"
       >
         {outlet}
       </div>

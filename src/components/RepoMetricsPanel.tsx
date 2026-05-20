@@ -5,12 +5,28 @@ import {
 import type { GitHubRepoMetrics } from '../types';
 import { Panel } from './Panel';
 
-export function RepoMetricsPanel({ repoMetrics }: { repoMetrics: GitHubRepoMetrics }) {
+function formatCount(value: number | null | undefined, status: GitHubRepoMetrics['status']): string {
+  if (status === 'error') {
+    return 'UNAVAILABLE';
+  }
+  if (status === 'loading' || value === null || value === undefined) {
+    return 'SYNCING';
+  }
+  return String(value);
+}
+
+export function RepoMetricsPanel({
+  repoMetrics,
+  className = '',
+}: {
+  repoMetrics: GitHubRepoMetrics;
+  className?: string;
+}) {
   return (
-    <Panel title="REPOSITORY_METRICS" right="V_042" className="min-h-[220px] md:flex-[1.35]">
-      <div className="text-[11px] text-amber-primary/60 space-y-3">
-        {repoMetrics.cached && repoMetrics.status === 'ready' && (
-          <p className="text-[10px] text-white/30 uppercase tracking-widest">Cached snapshot</p>
+    <Panel title="REPOSITORY_METRICS" right="V_042" className={className} bodyClassName="p-2.5 min-h-0 overflow-hidden">
+      <div className="text-[12px] text-amber-primary/60 space-y-1.5">
+        {import.meta.env.DEV && repoMetrics.cached && repoMetrics.status === 'ready' && (
+          <p className="text-[10px] text-white/30 uppercase tracking-widest">Buffered read</p>
         )}
 
         {repoMetrics.status === 'error' && (
@@ -19,14 +35,24 @@ export function RepoMetricsPanel({ repoMetrics }: { repoMetrics: GitHubRepoMetri
           </p>
         )}
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <div className="flex justify-between items-center border-b border-white/5 pb-1 amber-text-glow">
-            <span>COMMITS:</span>
+            <span>COMMITS</span>
             <span className="text-amber-primary font-bold">{formatCommitCount(repoMetrics)}</span>
           </div>
           <div className="flex justify-between items-center border-b border-white/5 pb-1">
+            <span className="text-amber-primary/60 amber-text-glow">STARS</span>
+            <span className="text-amber-primary/80">{formatCount(repoMetrics.starCount, repoMetrics.status)}</span>
+          </div>
+          <div className="flex justify-between items-center border-b border-white/5 pb-1">
+            <span className="text-amber-primary/60 amber-text-glow">OPEN_ISSUES</span>
+            <span className="text-amber-primary/80">
+              {formatCount(repoMetrics.openIssuesCount, repoMetrics.status)}
+            </span>
+          </div>
+          <div className="flex justify-between items-center border-b border-white/5 pb-1">
             <span className="text-amber-primary/60 amber-text-glow">LAST_PUSH_UTC</span>
-            <span className="text-vfd-teal/70 vfd-text-glow uppercase">
+            <span className="text-vfd-teal/70 vfd-text-glow uppercase text-right">
               {repoMetrics.status === 'ready' && repoMetrics.lastPushIso
                 ? new Date(repoMetrics.lastPushIso).toISOString().slice(0, 16).replace('T', ' ')
                 : repoMetrics.status === 'error'
@@ -35,7 +61,7 @@ export function RepoMetricsPanel({ repoMetrics }: { repoMetrics: GitHubRepoMetri
             </span>
           </div>
           <div className="flex justify-between items-center border-b border-white/5 pb-1">
-            <span className="text-amber-primary/60 amber-text-glow">LATEST_COMMIT_SHA</span>
+            <span className="text-amber-primary/60 amber-text-glow">LATEST_SHA</span>
             <span className="text-vfd-green/80 green-text-glow uppercase">
               {repoMetrics.status === 'ready' && repoMetrics.latestSha
                 ? repoMetrics.latestSha

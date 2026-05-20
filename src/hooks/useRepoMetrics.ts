@@ -8,6 +8,8 @@ const INITIAL: GitHubRepoMetrics = {
   lastPushIso: null,
   latestSha: null,
   topLanguage: null,
+  starCount: null,
+  openIssuesCount: null,
   deployStatus: 'unknown',
 };
 
