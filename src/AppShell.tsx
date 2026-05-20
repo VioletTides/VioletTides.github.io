@@ -9,6 +9,7 @@ import { SwipeableOutlet } from './components/SwipeableOutlet';
 import { useBootGate } from './hooks/useBootGate';
 import { useIsMobile } from './hooks/useIsMobile';
 import { useReducedMotion } from './hooks/useReducedMotion';
+import { useStatusLedPulse } from './hooks/useStatusLedPulse';
 import { useSessionTelemetry } from './hooks/useSessionTelemetry';
 import { pageMotionProps } from './motion/useMotionConfig';
 import { trackPageView } from './lib/analytics';
@@ -29,6 +30,7 @@ function navClassName(isActive: boolean) {
 
 export function AppShell() {
   const reducedMotion = useReducedMotion();
+  useStatusLedPulse(reducedMotion);
   const { isBooting, completeBoot, skipBoot } = useBootGate(reducedMotion);
   const location = useLocation();
   const isMobile = useIsMobile();
@@ -125,10 +127,7 @@ export function AppShell() {
                 BUILD: {__BUILD_STAMP__}-STABLE
               </span>
               <div className="flex items-center gap-2">
-                <div
-                  className={`status-led status-led-md ${reducedMotion ? '' : 'animate-pulse-live'}`}
-                  aria-hidden
-                />
+                <div className="status-led status-led-md" aria-hidden />
                 <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">PWR_OK</span>
               </div>
             </footer>

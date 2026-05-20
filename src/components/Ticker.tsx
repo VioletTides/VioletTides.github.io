@@ -14,11 +14,7 @@ export function Ticker({
       <div className="absolute inset-0 crt-bg-effect opacity-10 pointer-events-none" />
       <div className="bg-black/80 px-3 py-1.5 flex justify-between items-center border-b border-amber-primary/20 relative z-10">
         <div className="flex items-center gap-2">
-          <div
-            className={`status-led status-led-sm ${
-              reducedMotion ? '' : 'animate-pulse-live'
-            }`}
-          />
+          <div className="status-led status-led-sm" aria-hidden />
           <span className="text-[11px] font-bold tracking-wider text-amber-primary/80 uppercase amber-text-glow">
             {title}
           </span>

@@ -150,9 +150,19 @@
     animation: ticker 80s linear infinite;
   }
 
+  :root {
+    --status-led-pulse-period: 2s;
+    --status-led-pulse-delay: 0ms;
+  }
+
   .status-led {
     @apply rounded-full bg-vfd-green shrink-0;
     box-shadow: 0 0 8px #00ff41;
+  }
+
+  html:not([data-reduced-motion='true']) .status-led {
+    animation: pulse-live var(--status-led-pulse-period) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: var(--status-led-pulse-delay);
   }
 
   .status-led-sm {
@@ -164,7 +174,12 @@
   }
 
   .animate-pulse-live {
-    animation: pulse-live 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse-live var(--status-led-pulse-period) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation-delay: var(--status-led-pulse-delay);
+  }
+
+  html[data-reduced-motion='true'] .animate-pulse-live {
+    animation: none;
   }
 
   .animate-flicker {

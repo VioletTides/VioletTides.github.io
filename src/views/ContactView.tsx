@@ -46,11 +46,7 @@ export function ContactView({ reducedMotion = false }: { reducedMotion?: boolean
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-3 bg-black/40 px-3 py-2 border border-vfd-green/20">
-          <div
-            className={`status-led status-led-md ${
-              reducedMotion ? '' : 'animate-pulse-live'
-            }`}
-          />
+          <div className="status-led status-led-md" aria-hidden />
           <span className="text-[11px] font-bold text-vfd-green green-text-glow tracking-tighter">
             SECURE_LINK
           </span>

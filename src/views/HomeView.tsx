@@ -61,11 +61,7 @@ export function HomeView({
         <div className="absolute inset-0 dot-matrix opacity-10 pointer-events-none" />
         <div className="bg-[#1c1600] px-3 py-1 border-b border-amber-primary/20 flex justify-between items-center z-10 shrink-0">
           <div className="flex items-center gap-2">
-            <div
-              className={`status-led status-led-sm ${
-                reducedMotion ? '' : 'animate-pulse-live'
-              }`}
-            />
+            <div className="status-led status-led-sm" aria-hidden />
             <span className="text-[12px] font-bold text-amber-primary amber-text-glow uppercase tracking-widest">
               SYSTEM_KERNEL_LOGS.EXE
             </span>
