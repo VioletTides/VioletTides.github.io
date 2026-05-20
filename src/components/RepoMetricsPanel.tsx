@@ -70,16 +70,6 @@ export function RepoMetricsPanel({
                   : 'SYNCING'}
             </span>
           </div>
-          <div className="flex justify-between items-center border-b border-white/5 pb-1">
-            <span className="text-amber-primary/60 amber-text-glow">TOP_LANGUAGE</span>
-            <span className="text-amber-primary/80 amber-text-glow uppercase">
-              {repoMetrics.status === 'ready' && repoMetrics.topLanguage
-                ? repoMetrics.topLanguage
-                : repoMetrics.status === 'error'
-                  ? 'UNAVAILABLE'
-                  : 'SYNCING'}
-            </span>
-          </div>
           <div className="flex justify-between items-center">
             <span className="text-amber-primary/60 amber-text-glow">DEPLOY_STATUS</span>
             <span

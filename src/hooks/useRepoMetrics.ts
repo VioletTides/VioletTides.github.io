@@ -7,7 +7,6 @@ const INITIAL: GitHubRepoMetrics = {
   commitCount: null,
   lastPushIso: null,
   latestSha: null,
-  topLanguage: null,
   starCount: null,
   openIssuesCount: null,
   deployStatus: 'unknown',

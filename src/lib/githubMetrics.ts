@@ -127,11 +127,9 @@ export async function fetchGitHubRepoMetrics(
   const repoUrl = `https://api.github.com/repos/${GITHUB_REPO.owner}/${GITHUB_REPO.name}`;
 
   try {
-    const [repoResponse, commitsResponse, languagesResponse, deploysResponse, commitCount] =
-      await Promise.all([
+    const [repoResponse, commitsResponse, deploysResponse, commitCount] = await Promise.all([
         fetch(repoUrl, { signal, headers }),
         fetch(`${repoUrl}/commits?per_page=1`, { signal, headers }),
-        fetch(`${repoUrl}/languages`, { signal, headers }),
         fetch(
           `${repoUrl}/actions/workflows/${DEPLOY_WORKFLOW_FILE}/runs?branch=main&per_page=1`,
           { signal, headers },
@@ -139,7 +137,7 @@ export async function fetchGitHubRepoMetrics(
         fetchCommitCount(signal),
       ]);
 
-    const responses = [repoResponse, commitsResponse, languagesResponse, deploysResponse];
+    const responses = [repoResponse, commitsResponse, deploysResponse];
     const failed = responses.find((response) => !response.ok);
 
     if (failed) {
@@ -148,7 +146,6 @@ export async function fetchGitHubRepoMetrics(
         commitCount: null,
         lastPushIso: null,
         latestSha: null,
-        topLanguage: null,
         starCount: null,
         openIssuesCount: null,
         deployStatus: 'unknown',
@@ -162,12 +159,10 @@ export async function fetchGitHubRepoMetrics(
       open_issues_count?: number;
     };
     const commits = (await commitsResponse.json()) as Array<{ sha?: string }>;
-    const languages = (await languagesResponse.json()) as Record<string, number>;
     const deploys = (await deploysResponse.json()) as {
       workflow_runs?: Array<{ conclusion?: string | null; status?: string | null }>;
     };
 
-    const topLanguageEntry = Object.entries(languages).sort((a, b) => b[1] - a[1])[0];
     const latestRun = deploys.workflow_runs?.[0];
     const deployStatus =
       latestRun?.conclusion === 'success'
@@ -185,7 +180,6 @@ export async function fetchGitHubRepoMetrics(
       commitCount,
       lastPushIso: repo.pushed_at ?? null,
       latestSha: commits[0]?.sha?.slice(0, 7) ?? null,
-      topLanguage: topLanguageEntry?.[0] ?? null,
       starCount: repo.stargazers_count ?? null,
       openIssuesCount: repo.open_issues_count ?? null,
       deployStatus,
@@ -204,7 +198,6 @@ export async function fetchGitHubRepoMetrics(
       commitCount: null,
       lastPushIso: null,
       latestSha: null,
-      topLanguage: null,
       starCount: null,
       openIssuesCount: null,
       deployStatus: 'unknown',

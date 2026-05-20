@@ -47,7 +47,6 @@ export interface GitHubRepoMetrics {
   commitCount: number | null;
   lastPushIso: string | null;
   latestSha: string | null;
-  topLanguage: string | null;
   starCount: number | null;
   openIssuesCount: number | null;
   deployStatus: 'success' | 'failure' | 'in_progress' | 'queued' | 'unknown';

@@ -150,6 +150,19 @@
     animation: ticker 40s linear infinite;
   }
 
+  .status-led {
+    @apply rounded-full bg-vfd-green shrink-0;
+    box-shadow: 0 0 8px #00ff41;
+  }
+
+  .status-led-sm {
+    @apply w-1.5 h-1.5;
+  }
+
+  .status-led-md {
+    @apply w-2 h-2;
+  }
+
   .animate-pulse-live {
     animation: pulse-live 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }

@@ -15,7 +15,7 @@ export function Ticker({
       <div className="bg-black/80 px-3 py-1.5 flex justify-between items-center border-b border-amber-primary/20 relative z-10">
         <div className="flex items-center gap-2">
           <div
-            className={`w-1.5 h-1.5 bg-vfd-green rounded-full shadow-[0_0_8px_#00ff41] ${
+            className={`status-led status-led-sm ${
               reducedMotion ? '' : 'animate-pulse-live'
             }`}
           />

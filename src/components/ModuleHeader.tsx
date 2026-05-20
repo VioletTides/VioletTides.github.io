@@ -2,7 +2,7 @@ export const ModuleHeader = ({ title, right }: { title: string; right?: string }
   <div className="bg-[#151000] px-3 py-1.5 border-b border-amber-primary/10 flex justify-between items-center relative z-10">
     <div className="flex items-center gap-2">
       <div className="flex items-center gap-1.5">
-        <div className="w-1.5 h-1.5 bg-vfd-green rounded-full animate-pulse shadow-[0_0_5px_#00ff41]" />
+        <div className="status-led status-led-sm motion-safe:animate-pulse-live" />
         <span className="text-[11px] font-bold text-amber-primary amber-text-glow tracking-[0.2em]">{title}</span>
       </div>
     </div>

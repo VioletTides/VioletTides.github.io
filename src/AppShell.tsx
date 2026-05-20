@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Terminal, Cpu, Radio } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 
 import { BootSequence } from './components/BootSequence';
 import { ProfileCard } from './components/ProfileCard';
@@ -74,7 +74,7 @@ export function AppShell() {
             <header className="h-auto md:h-12 border-b border-white/10 flex flex-col md:flex-row justify-between items-center px-4 md:px-6 py-4 md:py-0 bg-surface-header/80 backdrop-blur-sm z-10 shrink-0 gap-4 md:gap-0">
               <div className="flex items-center gap-3 text-amber-primary/90 amber-text-glow w-full md:w-auto">
                 <Terminal size={14} className="text-amber-primary" />
-                <span className="text-[12px] font-bold tracking-tighter">ENGINEER_CORE_V1.0</span>
+                <span className="text-[12px] font-bold tracking-tighter">PORTFOLIO_V1.0</span>
               </div>
 
               <nav
@@ -93,10 +93,7 @@ export function AppShell() {
                 ))}
               </nav>
 
-              <div className="hidden md:flex items-center gap-4">
-                <Cpu size={14} className={`text-white/40 ${reducedMotion ? '' : 'animate-flicker'}`} />
-                <Radio size={14} className="text-white/40" />
-                <div className="h-4 w-px bg-white/10" />
+              <div className="hidden md:flex items-center">
                 <span className="text-[10px] text-amber-primary/60 amber-text-glow">UPTIME: 99.98%</span>
               </div>
             </header>
@@ -124,29 +121,15 @@ export function AppShell() {
             </main>
 
             <footer className="h-auto border-t border-white/10 bg-surface-header/50 backdrop-blur-sm flex flex-col md:flex-row items-center px-4 md:px-8 py-4 md:py-0 justify-between z-10 shrink-0 gap-4 md:gap-0 min-h-[3rem] md:min-h-12">
-              <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6">
-                <span className="text-[11px] text-white/30 tracking-widest font-bold uppercase">
-                  BUILD: {__BUILD_STAMP__}-STABLE
-                </span>
-                <span className="text-[11px] text-amber-primary/30 font-bold uppercase">HOST: CORE_TERMINAL_01</span>
-              </div>
-              <div className="flex gap-6">
-                <div className="flex items-center gap-2">
-                  <div
-                    className={`w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] ${
-                      reducedMotion ? '' : 'animate-pulse-live'
-                    }`}
-                  />
-                  <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">PWR_OK</span>
-                </div>
-                <div className="hidden sm:flex items-center gap-2">
-                  <div
-                    className={`w-2 h-2 bg-vfd-green shadow-[0_0_8px_#00ff41] ${
-                      reducedMotion ? '' : 'animate-flicker'
-                    }`}
-                  />
-                  <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">LINK_ACT</span>
-                </div>
+              <span className="text-[11px] text-white/30 tracking-widest font-bold uppercase">
+                BUILD: {__BUILD_STAMP__}-STABLE
+              </span>
+              <div className="flex items-center gap-2">
+                <div
+                  className={`status-led status-led-md ${reducedMotion ? '' : 'animate-pulse-live'}`}
+                  aria-hidden
+                />
+                <span className="text-[11px] font-bold text-vfd-green green-text-glow uppercase">PWR_OK</span>
               </div>
             </footer>
           </motion.div>

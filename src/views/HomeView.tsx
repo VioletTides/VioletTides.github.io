@@ -62,7 +62,7 @@ export function HomeView({
         <div className="bg-[#1c1600] px-3 py-1 border-b border-amber-primary/20 flex justify-between items-center z-10 shrink-0">
           <div className="flex items-center gap-2">
             <div
-              className={`w-1.5 h-1.5 bg-vfd-green rounded-full shadow-[0_0_5px_theme(colors.vfd-green)] ${
+              className={`status-led status-led-sm ${
                 reducedMotion ? '' : 'animate-pulse-live'
               }`}
             />

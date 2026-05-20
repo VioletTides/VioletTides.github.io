@@ -132,7 +132,7 @@ export function BootSequence({
                     <div
                       className={`w-1 h-1 rounded-full ${
                         progress > 50
-                          ? 'bg-vfd-green animate-pulse-live shadow-[0_0_5px_#00ff41]'
+                          ? 'status-led status-led-sm animate-pulse-live shadow-[0_0_5px_#00ff41]'
                           : 'bg-vfd-red/40 shadow-[0_0_2px_#ff3131]'
                       }`}
                     />
