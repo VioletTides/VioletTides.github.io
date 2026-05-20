@@ -28,16 +28,14 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Copy `.env.example` to `.env.local` for local overrides.
 
-**Important:** Every `VITE_*` variable is compiled into the public JavaScript bundle. Do not put private credentials in repository variables if they must stay secret — use GitHub Actions **secrets** (see deploy table below). GA measurement IDs and Plausible domains are expected to be public; API keys and PATs are not.
+**Important:** Every `VITE_*` variable is compiled into the public JavaScript bundle. GA measurement IDs are public in the built JS; use GitHub Actions **secrets** only for tokens (e.g. GitHub PAT).
 
 | Variable | Purpose | Where to set |
 |----------|---------|----------------|
-| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 — **tracks visitors when set** | Actions variable or `.env.local` |
-| `VITE_PLAUSIBLE_DOMAIN` | Plausible script + stats panel domain | Actions variable or `.env.local` |
-| `VITE_PLAUSIBLE_API_KEY` | Plausible Stats API (desktop Home panel) | Actions **secret** only |
+| `VITE_GA_MEASUREMENT_ID` | Google Analytics 4 — **tracks page views when set** | Actions variable or `.env.local` |
 | `VITE_GITHUB_TOKEN` | GitHub PAT for repo metrics rate limits | Actions **secret** only |
 
-Without analytics env vars, tracking scripts are skipped. The desktop Home telemetry panel explains Plausible setup when the Stats API is not configured.
+Without `VITE_GA_MEASUREMENT_ID`, no analytics script is loaded. The desktop Home telemetry panel shows whether GA is active for the current build.
 
 ### GitHub Actions (production deploy)
 
@@ -47,14 +45,12 @@ In the repo: **Settings → Secrets and variables → Actions**.
 
 | Name | Example / notes |
 |------|-----------------|
-| `VITE_GA_MEASUREMENT_ID` | Your GA4 ID (e.g. `G-…`) — enables GA on all pages |
-| `VITE_PLAUSIBLE_DOMAIN` | `robinn.ca` *(optional)* |
+| `VITE_GA_MEASUREMENT_ID` | Your GA4 ID (e.g. `G-69CTLC057Y`) — enables GA on all pages |
 
 **Secrets** (never committed; injected at build time):
 
 | Name | When needed |
 |------|-------------|
-| `VITE_PLAUSIBLE_API_KEY` | Live Plausible aggregate stats on desktop Home |
 | `VITE_GITHUB_TOKEN` | Higher GitHub API rate limits for repo metrics panel |
 
 `.github/workflows/deploy.yml` passes these into `npm run build` on push to `main`.
@@ -92,4 +88,4 @@ Pushes to `main` run `.github/workflows/deploy.yml`.
 
 ## Privacy
 
-When `VITE_GA_MEASUREMENT_ID` and/or Plausible is set at build time, the site loads third-party analytics scripts and records page views. Configure only what you need; omit vars to disable tracking.
+When `VITE_GA_MEASUREMENT_ID` is set at build time, the site loads Google Analytics (gtag) and records page views. Omit the variable to disable tracking.

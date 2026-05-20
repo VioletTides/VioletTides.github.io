@@ -54,9 +54,5 @@ export interface GitHubRepoMetrics {
 }
 
 export interface AnalyticsSnapshot {
-  status: 'idle' | 'loading' | 'ready' | 'unconfigured' | 'error';
-  visitors?: number;
-  pageviews?: number;
-  visitDurationSeconds?: number;
-  bounceRate?: number;
+  status: 'idle' | 'unconfigured' | 'active';
 }
