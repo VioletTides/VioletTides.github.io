@@ -79,7 +79,7 @@ export function ProfileCard({ reducedMotion, variant }: ProfileCardProps) {
               : `text-base sm:text-lg text-white/90 amber-text-glow font-sans font-medium ${reducedMotion ? '' : 'blinking-cursor'}`
           }
         >
-          Embedded Systems Engineer
+          Embedded Systems Designer
         </p>
         <div
           className={

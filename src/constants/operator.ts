@@ -1,5 +1,5 @@
 export const OPERATOR_NAME = 'Robin Anderson';
-export const OPERATOR_TITLE = 'Embedded Systems Engineer';
+export const OPERATOR_TITLE = 'Embedded Systems Designer';
 export const OPERATOR_LOCATION = 'Toronto, ON';
 export const OPERATOR_TIMEZONE = 'America/Toronto';
 
