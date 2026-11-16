@@ -7,6 +7,8 @@ interface Props { title?: string; description: string; home?: boolean }
 const { title, description, home = false } = Astro.props;
 const fullTitle = title ? `${title} | ${NAME}` : NAME;
 const url = new URL(Astro.url.pathname, Astro.site);
+// Google Analytics loads only when the build sets this. The deploy workflow passes it from a repository variable.
+const ga = import.meta.env.GA_MEASUREMENT_ID;
 ---
 <!doctype html>
 <html lang="en-CA">
@@ -26,6 +28,8 @@ const url = new URL(Astro.url.pathname, Astro.site);
 <link rel="preload" href="/shared/fonts/source-code-pro-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/site.css">
 <style is:inline set:html={categoryCss}></style>
+{ga && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga}`}></script>}
+{ga && <script is:inline define:vars={{ ga }}>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', ga);</script>}
 <slot name="head" />
 </head>
 <body class:list={{ home }}>
