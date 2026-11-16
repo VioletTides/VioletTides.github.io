@@ -1,0 +1,47 @@
+---
+// Home: the ASCII tree. src/tree/main.js draws it, from the listed projects and the categories in #site.
+import Base from '../layouts/Base.astro';
+import Article from '../components/Article.astro';
+import { categories, projects } from '../data/site';
+
+// Only the fields the tree reads. Each project's page text is in its <template> below.
+const site = {
+  categories,
+  projects: projects.map(p => ({ id: p.slug, name: p.name, kind: p.kind, year: p.year, months: p.months, what: p.what, featured: p.featured })),
+};
+// JSON in a <script> element: escaping < keeps any text from closing the element early.
+const siteJson = JSON.stringify(site).replace(/</g, '\\u003c');
+---
+<Base home description="Robin Anderson's projects in hardware, software and rocketry, and their work, drawn as an ASCII tree.">
+  <p class="lede" slot="lede">Computer engineering student at McMaster and president of McMaster Rocketry. I design circuit boards, write firmware and build software.</p>
+
+  <main>
+  <div class="main-area" id="main-area">
+  <div class="canvas-col">
+  <figure class="canvas" id="canvas">
+    <div class="category-tabs" id="category-tabs"><button class="callout" id="back" type="button" aria-pressed="true">all categories</button></div>
+    <canvas id="glyphs" aria-hidden="true"></canvas>
+    <aside class="info" id="info" aria-hidden="true"></aside>
+    <canvas id="cv" role="img" aria-label={`ASCII drawing of my projects as a tree. Each category (${categories.map(b => b.name).join(', ')}) is a limb of the tree, and each node on it is a project. Click a category to zoom in, then click a project to open it. The numbered category tabs and the tree view do the same from the keyboard.`}></canvas>
+  </figure>
+  <p class="hint" id="hint">Click a category to open it, then click a project.</p>
+  <noscript><p>The tree needs JavaScript. Here are my projects as a list:</p><ul>{projects.map(p => <li><a href={`/projects/${p.slug}/`}>{p.name}</a></li>)}</ul></noscript>
+
+  <div class="scrub"><button class="motion" id="motion" type="button">Pause</button><button class="motion" id="tlplay" type="button">Replay</button><div class="ruler"><input type="range" id="tl" step="any" aria-label="Year"><div class="years" id="years" aria-hidden="true"></div></div></div>
+  </div>
+  <section id="project" aria-label="Project" hidden></section>
+  {projects.map(p => <template id={`p-${p.slug}`}><Article p={p} inTree /></template>)}
+  </div>
+  <!-- After the canvas in the page, so keyboard focus reaches the category tabs before the tree view rows. The grid puts it on the left. -->
+  <div class="side">
+    <nav class="below" aria-label="Projects">
+      <ul class="tree" id="tree"></ul>
+    </nav>
+  </div>
+  </main>
+
+  <Fragment slot="scripts">
+    <script type="application/json" id="site" set:html={siteJson}></script>
+    <script>import '../tree/main.js';</script>
+  </Fragment>
+</Base>

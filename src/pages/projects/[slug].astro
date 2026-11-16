@@ -1,0 +1,18 @@
+---
+// One page per project, unlisted ones included, so a deep link always works.
+import Base from '../../layouts/Base.astro';
+import Article from '../../components/Article.astro';
+import { allProjects, type Project } from '../../data/site';
+
+export function getStaticPaths() {
+  return allProjects.map(p => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props as { p: Project };
+---
+<Base title={p.name} description={p.what}>
+  <main>
+    <section class="static" style={`--k: var(--${p.kind})`}>
+      <Article p={p} />
+    </section>
+  </main>
+</Base>

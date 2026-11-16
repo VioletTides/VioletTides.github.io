@@ -1,0 +1,194 @@
+/* The site's colours: a cool grey background, near-black text, one highlight fill per category. Category colours come from
+   src/data/projects.json, as CSS that Base.astro inlines. */
+:root {
+  --bg: #e6e9e4; --ink: #1c1f24; --ink-soft: #4b5058; --k: var(--ink); --line: #b9beb6;
+  --mono: "Source Code Pro", monospace; --text: "Source Serif 4", Georgia, serif;
+}
+html[data-theme="dark"] { --bg: #15181c; --ink: #e4e7e2; --ink-soft: #a2a9ae; --line: #3b4147; }
+/* Self-hosted, Latin subset, variable weight. Licences sit next to the files in shared/fonts/. */
+/* Source Serif 4: a book serif, like the captions in old printed books, and easy to read at small sizes. */
+@font-face { font-family: "Source Serif 4"; src: url("shared/fonts/source-serif-4-latin.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
+/* Source Code Pro: the ASCII canvas, the tree view and labels. Same family as Source Serif 4, clear l, 1 and I, and it never joins character pairs. */
+@font-face { font-family: "Source Code Pro"; src: url("shared/fonts/source-code-pro-latin.woff2") format("woff2"); font-weight: 200 900; font-display: swap; }
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); }
+body { margin: 0; font: 400 1.0625rem/1.6 var(--text); }
+::selection { background: var(--ink); color: var(--bg); }
+a, button { cursor: pointer; }
+a { color: inherit; text-underline-offset: 0.2em; }
+a:hover { text-decoration-thickness: 3px; }
+button:active { transform: translateY(1px); }   /* one press nudge for every button */
+/* Keyboard focus: a ring in the item's colour, drawn inside its box so it never covers a neighbour. */
+:focus-visible { outline: 2px solid var(--k, var(--ink)); outline-offset: 2px; }
+.wrap { padding: 0 clamp(1rem, 4vw, 3rem); max-width: 90rem; margin: 0 auto; }
+
+/* The name, lede and links on the left, dark mode switch alone at the top right. */
+header { padding: 2rem 0 0.5rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 1rem; }
+header .switch { margin-top: -0.5rem; }   /* its 44 px box centres on the name's first line */
+/* The name: the h1 on the home page, a link home on every other page. */
+h1, .site-name { font-weight: 700; font-size: clamp(2rem, 5vw, 3rem); line-height: 0.95; margin: 0; letter-spacing: -0.03em; }
+.site-name a { text-decoration: none; }
+.lede { max-width: 52ch; color: var(--ink-soft); margin: 0.75rem 0 0; }
+.links { list-style: none; margin: 0.5rem 0 0; padding: 0; display: flex; flex-wrap: wrap; column-gap: 1.25rem; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; overflow-wrap: anywhere; }
+.links a:active { transform: translateY(1px); }
+.switch { font: 600 0.875rem var(--mono); color: var(--ink); background: none; border: 0; padding: 0; min-height: 44px; }
+.switch:hover { color: var(--ink-soft); }
+
+.canvas { position: relative; margin: 1rem 0 1em; border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+/* resize() sets top, so the glyph canvas sits exactly over #cv, wherever the category tabs put it. */
+#glyphs { position: absolute; left: 0; width: 100%; pointer-events: none; }
+#cv { position: relative; display: block; width: 100%; height: clamp(460px, 56vw, 720px); touch-action: pan-y; }
+.hint { font: 400 0.875rem var(--mono); color: var(--ink-soft); margin: 0; padding: 0.5rem 0; }
+/* Without WebGL 2 (main.js sets .no-gl) there is no canvas. The tree view and an open project fill the page, which scrolls. */
+.no-gl .canvas-col { display: none; }
+
+/* Controls, one style per kind. Link: underlined, in the text's font, and nothing else is underlined. Navigation (category
+   bar, tree view, breadcrumb): mono, a light tint band on hover and a full one on the current place. Action (Pause,
+   Replay, close): mono semibold, softer on hover. Switch: an action that names its state. Hint: soft grey text. */
+/* Hover and selection use the item's own category colour (--k), so a hardware row never lights up in rocketry magenta. */
+.callout {
+  font: 600 0.9375rem var(--mono); color: var(--k); background: var(--bg);
+  border: 0; padding: 0.5rem 0.75rem; min-height: 44px; white-space: nowrap;
+}
+/* One meaning per mark: underline is a link, a tint band behind the text is where you are. The band is as tall
+   as a tree view row, so the category tabs and the tree mark the current place the same way. */
+.callout:hover, .callout.on, .tree .folder button:hover, .where button:hover, .category-tabs .callout[aria-pressed="true"] {
+  --tint: color-mix(in srgb, var(--k) 7%, transparent);
+  background: linear-gradient(transparent 0.5rem, var(--tint) 0.5rem, var(--tint) calc(100% - 0.5rem), transparent calc(100% - 0.5rem));
+}
+/* The category tabs are the canvas's first row, inside its top rule, always shown: all categories, or one category. The current view has the full band. */
+.category-tabs { display: flex; flex-wrap: wrap; }
+/* On the band the category colour is mixed 20% toward the ink, so it keeps 4.5:1 in light mode (work drops to 3.8:1 unmixed). */
+.category-tabs .callout[aria-pressed="true"] { color: color-mix(in srgb, var(--k) 80%, var(--ink)); --tint: color-mix(in srgb, var(--k) 14%, transparent); }
+
+.below { margin-top: 2rem; }
+.tree { list-style: none; margin: 0; padding: 0; font: 400 0.9375rem/1 var(--mono); }
+.tree li { display: flex; align-items: center; white-space: pre; }
+.tree li:first-child { min-height: 44px; }   /* ~/robin sits on the same line as the category tabs */
+.tree li[hidden] { display: none; }   /* display: flex would otherwise override the hidden attribute */
+.tree .guide { color: var(--ink-soft); }
+.tree button { font: inherit; color: var(--ink); background: none; border: 0; padding: 0 0.6rem; min-height: 28px; text-align: left; }   /* 28 px rows keep the tree lines close; touch gets 44 px below */
+.tree button:hover, .tree button.on { color: var(--k); }
+.tree button:focus-visible { outline-offset: -2px; }
+.tree button[aria-current="true"] { color: color-mix(in srgb, var(--k) 80%, var(--ink)); font-weight: 600; background: color-mix(in srgb, var(--k) 14%, transparent); }
+.tree .folder button { font-weight: 600; color: var(--k); }
+.tree .meta { color: var(--ink-soft); font-size: 0.8125rem; margin-left: 0.5rem; }   /* clear of the current row's tint */
+@media (pointer: coarse) { .tree button { min-height: 44px; } }
+
+/* The path is the way back: ~/robin goes to all categories, the folder to this category. On the tree it is buttons, on a
+   project's own page links. */
+.where { display: flex; flex-wrap: wrap; align-items: center; font: 400 0.875rem var(--mono); color: var(--ink-soft); margin: 0; min-height: 44px; }
+.where button { font: inherit; color: var(--ink); background: none; border: 0; padding: 0 0.25rem; min-height: 44px; }
+.where a { color: var(--ink); text-decoration: none; padding: 0 0.25rem; display: inline-flex; align-items: center; min-height: 44px; }
+.where a:hover { text-decoration: underline; }
+.where .fold { color: var(--k); font-weight: 600; }
+.where .yr { margin-left: 1rem; }   /* the year follows the path, and close sits alone at the right */
+.where .x { margin-left: auto; padding: 0 0.25rem; color: var(--ink); text-decoration: none; font-weight: 600; }
+.where .x:hover { color: var(--ink-soft); background: none; }
+.where kbd { font: inherit; font-size: 0.75rem; color: var(--ink-soft); border: 1px solid var(--line); border-radius: 2px; padding: 0 0.3rem; margin-left: 0.25rem; }
+
+/* The open project, and the project's own page (.static): one serif reading column. The title sits over a 2 px ink
+   rule, like the canvas's own rules. The static page's h1 and h2 take the roles of the open project's h2 and h3. */
+#project { min-width: 0; }
+#project h2:focus { outline: none; }
+#project .article { max-width: 46rem; margin: 0 auto; padding: 0 1rem 3rem; }
+.static .article { max-width: 46rem; margin: 0 auto; padding: 1rem 1rem 3rem; }
+#project .book h2, .static h1 { font: 700 clamp(1.75rem, 4vw, 2.25rem)/1.1 var(--text); letter-spacing: -0.01em; color: var(--k); margin: 0.5rem 0 1.25rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--ink); }
+.book h3, .static h2 { font: 700 1.0625rem/1.4 var(--text); color: var(--ink); margin: 1.5rem 0 0.25rem; }
+.book p { margin: 0 0 0.75rem; max-width: 65ch; }
+.book .lead { color: var(--ink); }
+:is(.book h3, .static h2) + p { color: var(--ink-soft); }
+.book .link { margin-top: 1.5rem; }
+.book .link a { color: var(--k); }
+.book figure { margin: 1.5rem 0 0; }
+.book img { display: block; width: auto; max-width: 100%; height: auto; max-height: 32rem; }   /* a tall photo stays shorter than one screen */
+.book figcaption { font: 400 0.875rem/1.4 var(--mono); color: var(--ink-soft); margin-top: 0.5rem; }
+
+/* The one toolbar, under the canvas. Its buttons are plain text, so the canvas stays the heaviest thing on the page. On a
+   narrow screen the slider takes its own row. */
+.scrub { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-top: 0.75rem; }
+.motion { font: 600 0.875rem var(--mono); color: var(--ink); background: none; border: 0; padding: 0 0.25rem; min-height: 44px; }
+.motion:hover, .motion:active { color: var(--ink-soft); }
+#motion { min-width: 7ch; text-align: left; }   /* Play and Pause take the same width, so Replay never shifts */
+.scrub input { cursor: pointer; width: 100%; min-height: 44px; margin: 0; accent-color: var(--ink); }
+.ruler { flex: 1 1 12rem; position: relative; }
+/* The marks sit in the slider's own 44 px, under the track. They are inset by half the thumb width, so a mark sits under the thumb at its year. */
+.years { position: absolute; left: 8px; right: 8px; bottom: -2px; height: 0.875rem; pointer-events: none; font: 400 0.75rem/1 var(--mono); color: var(--ink-soft); }
+.years span { position: absolute; transform: translateX(-50%); }
+.years span::before { content: ""; position: absolute; left: 50%; top: -0.3rem; height: 0.2rem; border-left: 1px solid currentColor; }
+.years .now { color: var(--ink); font-weight: 700; }
+
+/* The info panel sits on the canvas, bottom right, in the empty space right of the trunk. From 700 px up. */
+.info { display: none; }
+/* Opening a project, from 1024 px up: the info panel's frame (.ghost) grows from the info panel to the project's box, then the page
+   fades in over it. Closing reverses it. ui.js sets the boxes and classes. The ghost looks exactly like the info panel. */
+.ghost { position: absolute; z-index: 3; overflow: hidden;
+  transition: left 260ms cubic-bezier(0.3, 0, 0.2, 1), top 260ms cubic-bezier(0.3, 0, 0.2, 1), width 260ms cubic-bezier(0.3, 0, 0.2, 1), height 260ms cubic-bezier(0.3, 0, 0.2, 1); }
+.ghost.closing { transition-duration: 220ms; }   /* closing is a little quicker than opening */
+.ghost-text { max-width: 100%; animation: fade-out 120ms ease-in both; }
+.ghost.closing .ghost-text { animation: fade-in 120ms 150ms ease-out both; }
+#project.grow-in { animation: fade-in 220ms ease-out both; }
+#project.swap > .article { animation: rise 180ms ease-out both; }
+#project.grow-out > .article { animation: fade-out 120ms ease-in both; }
+@keyframes fade-in { from { opacity: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(4px); } }
+@keyframes fade-out { to { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { #project, #project > .article, .ghost-text { animation: none !important; } }
+
+@media (max-width: 700px) { .category-tabs .callout { font-size: 0.8125rem; padding: 0.5rem 0.45rem; } }
+@media (min-width: 700px) {
+  .info, .ghost { margin: 0; padding: 1.25rem; background: var(--bg); border: 1px solid var(--line); font: 400 0.875rem/1.5 var(--mono); pointer-events: none; }   /* lets the pointer through to the canvas */
+  .info { display: block; position: absolute; right: 0.75rem; bottom: calc(40px + 0.75rem); width: min(19rem, 32%); min-height: 8rem; z-index: 1; }
+  .info.idle { min-height: 0; }
+  :is(.info, .ghost) h2 { font: 700 1.25rem/1.2 var(--text); color: var(--k); margin: 0 0 0.375rem; }   /* the same serif as the open page's title */
+  :is(.info, .ghost) p { margin: 0; color: var(--ink-soft); }
+  :is(.info, .ghost) .go { margin-top: 0.75rem; font-size: 0.8125rem; color: var(--ink-soft); }
+  :is(.info, .ghost) .what { color: var(--ink); margin-top: 0.75rem; font-family: var(--text); font-size: 0.9375rem; }
+}
+
+/* From 1024 px up the page fits the window and never scrolls. The tree view is a column left of the canvas and
+   scrolls inside itself. The canvas takes the height left under the header, category tabs, hint and toolbar. */
+@media (min-width: 1024px) {
+  .home .wrap { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  .no-gl .wrap { height: auto; overflow: visible; }
+  header { flex: none; padding-top: 1.25rem; padding-bottom: 0; }
+  header .switch { margin-top: 0; }   /* the 3rem name is taller here, so the box already centres on it */
+  /* The links share the name's line, so the canvas gets their row. */
+  header > div { display: grid; grid-template-columns: auto 1fr; column-gap: 2.5rem; align-items: center; }
+  header .links { grid-column: 2; grid-row: 1; margin: 0; }
+  .lede { grid-column: 1 / -1; max-width: none; margin-top: 0.5rem; }   /* the bio runs the full width, so it takes as few lines as it can */
+  .home main { flex: 1; min-height: 0; display: grid; grid-template-columns: 18.5rem minmax(0, 1fr); gap: 2rem; padding: 0.75rem 0 1rem; }
+  .side { grid-column: 1; grid-row: 1; min-height: 0; }
+  .side .below { margin-top: 0; height: 100%; border-top: 2px solid var(--ink); padding: 0 1rem 0 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: transparent transparent; }   /* no bottom padding: rows would show under the bottom pinned folder */
+  .side .below:hover, .side .below:focus-within { scrollbar-color: var(--line) transparent; }   /* the scrollbar shows only when the tree is in use */
+  /* Folder lines stick to the top and bottom of the tree view column. pinFolders() sets each one's offset. Below
+     1024 px the tree sits under the canvas, and pinned lines would float over it. */
+  .tree .folder, .tree li:first-child { position: sticky; background: var(--bg); z-index: 1; }
+  main > .main-area { grid-column: 2; grid-row: 1; min-width: 0; min-height: 0; display: flex; flex-direction: column; position: relative; }
+  .canvas-col { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+  main > .main-area .canvas { flex: 1; min-height: 0; margin-top: 0; display: flex; flex-direction: column; }
+  #cv { flex: 1 1 0; height: auto; min-height: 300px; }   /* resize() reads this height */
+  .hint { display: none; }   /* the info panel says it */
+  /* An open project covers the drawing right of the split view (setView() in ui.js), between the category tabs and the canvas's
+     bottom rule. --top is the category tabs' bottom edge in the renderer, --bot the top of the canvas's bottom rule. The
+     header, tree view, category tabs and toolbar stay put. The page keeps the info panel's frame, so the grown frame hands over
+     to it with no cut. The canvas's rule is its bottom line. A long page scrolls inside the frame, and the scrollbar
+     always shows that it does. */
+  body.reading #project { position: absolute; top: var(--top, 0); left: var(--split, 0px); right: 0; bottom: var(--bot, 0px); z-index: 2; margin: 0;
+    background: var(--bg); border: 1px solid var(--line); border-bottom: 0; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+  body.reading #project .article { padding: 0.5rem 2.5rem 2.5rem; }   /* room inside the frame on every side */
+  body.reading .info { visibility: hidden; }
+  /* While the frame grows, the page sits above it, see-through, and fades in. */
+  body.reading #project.growing { z-index: 4; background: transparent; opacity: 0; }
+}
+/* Narrower: the canvas, then the tree view, under the header. The page scrolls. The open project sits under the
+   toolbar, with the same top rule as the canvas. */
+@media (max-width: 1023.98px) {
+  main { display: flex; flex-direction: column; }
+  .side { display: contents; }
+  main > .main-area { order: 1; }
+  .side .below { order: 2; }
+  .main-area > #project { margin-top: 2rem; }
+  #project { border-top: 2px solid var(--ink); }
+}

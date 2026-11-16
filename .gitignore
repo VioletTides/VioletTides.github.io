@@ -1,0 +1,10 @@
+# Tool caches
+.impeccable/hook.cache.json
+
+# Dependencies and system files
+node_modules/
+.DS_Store
+
+# Astro
+dist/
+.astro/

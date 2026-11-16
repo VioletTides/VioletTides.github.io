@@ -1,0 +1,51 @@
+---
+// Every page: head tags, theme, and the header with name and links.
+import { categoryCss } from '../data/site';
+import { EMAIL, GITHUB, LINKEDIN, NAME } from '../data/contact';
+
+interface Props { title?: string; description: string; home?: boolean }
+const { title, description, home = false } = Astro.props;
+const fullTitle = title ? `${title} | ${NAME}` : NAME;
+const url = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{fullTitle}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={url}>
+<meta property="og:type" content="website">
+<meta property="og:title" content={fullTitle}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={url}>
+<meta property="og:site_name" content={NAME}>
+<!-- The saved theme, else the system one, is set before first paint so the page never flashes. -->
+<script is:inline>{ let s = null; try { s = localStorage.getItem('theme'); } catch {} document.documentElement.dataset.theme = s || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'); }</script>
+<link rel="preload" href="/shared/fonts/source-code-pro-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/site.css">
+<style is:inline set:html={categoryCss}></style>
+<slot name="head" />
+</head>
+<body class:list={{ home }}>
+<div class="wrap">
+  <header>
+    <div>
+      {home ? <h1>{NAME}</h1> : <p class="site-name"><a href="/">{NAME}</a></p>}
+      <slot name="lede" />
+      <ul class="links">
+        <li><a href={GITHUB}>GitHub</a></li>
+        <li><a href={LINKEDIN}>LinkedIn</a></li>
+        <li><a href={`mailto:${EMAIL}`}>Email</a></li>
+        <li><a href="/resume.pdf">Resume</a></li>
+      </ul>
+    </div>
+    <button class="switch" id="theme" type="button" aria-pressed="false">Dark mode: off</button>
+  </header>
+  <slot />
+</div>
+<script is:inline src="/theme.js"></script>
+<slot name="scripts" />
+</body>
+</html>

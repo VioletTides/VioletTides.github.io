@@ -1,0 +1,769 @@
+{
+  "categories": [
+    {
+      "kind": "sw",
+      "name": "software",
+      "light": "#0058b4",
+      "dark": "#5aa9e6"
+    },
+    {
+      "kind": "hw",
+      "name": "hardware",
+      "light": "#00733e",
+      "dark": "#3fc38f"
+    },
+    {
+      "kind": "rk",
+      "name": "rocketry",
+      "light": "#b9197d",
+      "dark": "#e070b8"
+    },
+    {
+      "kind": "wk",
+      "name": "work",
+      "light": "#ba3800",
+      "dark": "#f08a3c"
+    }
+  ],
+  "projects": [
+    {
+      "slug": "pcb",
+      "name": "pcb-card",
+      "kind": "hw",
+      "year": 2026.2,
+      "months": 7,
+      "what": "A credit-card-size circuit board with an NXP NT3H2111 NFC tag. Tap a phone to it.",
+      "facts": "KiCad 10, 2-layer board. No battery: the phone's 13.56 MHz field powers the tag. Gerbers and pick-and-place files are in the repo.",
+      "href": "https://github.com/VioletTides/PCB-Business-Card",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I made my business card as a printed circuit board the size of a credit card. The front has my name, my program and a QR code to my résumé, and the back has my bird logo in exposed gold. Tap a phone to it and it reads the NFC (near-field communication) tag inside."
+        },
+        {
+          "heading": "How",
+          "text": "There's no battery. The phone's 13.56 MHz field powers an NXP NT3H2111 tag through a copper antenna coil on the back layer, and one capacitor tunes the coil. That's three parts in total. I drew it in KiCad 10, and the antenna footprint came from the open-source nfc_antenna_generator script."
+        },
+        {
+          "heading": "Where it stands",
+          "text": "It's still a design, so the images are renders. The repo has everything needed to order it: Gerbers, drill files, pick-and-place positions and the netlist."
+        }
+      ],
+      "media": [
+        {
+          "src": "front.png",
+          "alt": "Render of the card front: black board, ROBIN ANDERSON in yellow, Computer Engineering at McMaster University, Embedded Developer, Hardware Designer, and a large white QR code."
+        },
+        {
+          "src": "back.png",
+          "alt": "Render of the card back: a gold line drawing of a bird on a branch inside a circle, with circuit traces ending in small pads."
+        }
+      ]
+    },
+    {
+      "slug": "ev",
+      "name": "ev-charging-robot",
+      "kind": "hw",
+      "year": 2026.7,
+      "months": 2,
+      "what": "Capstone: a gantry robot that plugs in an electric car by itself. In progress.",
+      "facts": "ELECENG 4OI6. My part is the XYZ gantry, modelled in Onshape. Target C$250 per axis, priced at C$297.36 so far.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "For my capstone, our team is building a robot that plugs in an electric car by itself. I'm designing the motion platform, an XYZ gantry, in Onshape. It's still in progress."
+        },
+        {
+          "heading": "How",
+          "text": "The Y axis is bolted to the floor with its carriage facing up. The mast is a copy of that axis standing on the carriage, with the ram pointing out from the wall. The frame length is one variable in the CAD, and the cable chain and tie plates follow it. Every part that can be printed is, in carbon-fibre PETG with heat-set inserts."
+        },
+        {
+          "heading": "Cost",
+          "text": "I set a target of C$250 per axis, with the motor, driver and a share of the power supply included. A closed-loop NEMA 23 design came to C$442.35. V-wheels on the extrusion would have been cheaper, but I kept the stiffer HGR15 rails, cut the frame to 800 mm and switched to an open-loop NEMA 17. The Y axis runs on a ball screw."
+        },
+        {
+          "heading": "Where it stands",
+          "text": "It isn't built yet. The parts priced so far come to C$297.36 per axis, C$47.36 over my target, and the screws, inserts and printed parts aren't priced yet. A load check found the NEMA 17's margin thin for the mast, so the mast is limited to 42 mm/s."
+        }
+      ]
+    },
+    {
+      "slug": "fpga",
+      "name": "fpga-decompressor",
+      "kind": "hw",
+      "year": 2025.7,
+      "months": 4,
+      "what": "An image decompressor in Verilog on an Altera Cyclone IV FPGA.",
+      "facts": "COMPENG 3DQ5, with a partner. Verilog at 50 MHz. Multipliers 92% busy in colour conversion and 88% in the inverse DCT, checked in ModelSim.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "My partner and I built an image decompressor in hardware for COMPENG 3DQ5, in Verilog on an Altera Cyclone IV FPGA (field-programmable gate array). It rebuilds a compressed image in three stages, and we got two of them working."
+        },
+        {
+          "heading": "How",
+          "text": "Each stage is judged by how busy it keeps its multipliers. In colour conversion, I built the shift registers that keep four multipliers fed, plus the addressing and accumulators, and ran the ModelSim checks. In the inverse DCT (discrete cosine transform), I built Compute T and the write stage. My partner did the state machines, Compute S, fetching and a Python checker."
+        },
+        {
+          "heading": "Results",
+          "text": "ModelSim confirmed the first stage at 112,178 cycles for the whole image, with the multipliers busy 92.42% of the time. The second stage hit 87.92%. We never finished the third. We spent too long exploring designs for the second stage instead of committing to a simple one, and a break after the first squeezed the schedule."
+        }
+      ],
+      "media": [
+        {
+          "src": "idct-stage.png",
+          "alt": "Hand-drawn circuit diagram: four embedded memory blocks feed three multipliers, each into an adder and accumulator, then into buffers and back to memory.",
+          "caption": "One inverse DCT stage from our report: three multipliers reading from embedded memory."
+        }
+      ]
+    },
+    {
+      "slug": "tof",
+      "name": "tof-scanner",
+      "kind": "hw",
+      "year": 2024,
+      "months": 2,
+      "sized": false,
+      "what": "A 3D room scanner: a time-of-flight sensor on a stepper motor, drawn as a point cloud.",
+      "facts": "COMPENG 2DX3 final project, with a partner. VL53L1X sensor over I2C, UART to Python and Open3D.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "My partner and I built a 3D scanner for COMPENG 2DX3 in March and April 2024. A time-of-flight distance sensor on a stepper motor sweeps a full circle, and each sweep becomes one slice of a point cloud."
+        },
+        {
+          "heading": "How",
+          "text": "The sensor is a VL53L1X, read over I2C by a TI MSP432E401Y microcontroller running our C firmware. After each full turn, the board sends angle and distance pairs over UART to a Python script. The script turns each pair into x, y and z, drops any reading the sensor flags as invalid, and draws the result in Open3D. The step between slices is set in the script, so a scan is a series of sweeps with the scanner moved between them."
+        }
+      ],
+      "media": [
+        {
+          "src": "hallway.png",
+          "alt": "A wireframe point cloud of a hallway: 23 slices in a row, each tracing the walls, floor and ceiling.",
+          "caption": "Our hallway scan, 430 points in 23 slices, redrawn from the saved file."
+        }
+      ]
+    },
+    {
+      "slug": "nfc",
+      "name": "nfc-sheaths",
+      "kind": "hw",
+      "year": 2023.9,
+      "months": 2,
+      "what": "Two-colour 3D-printed sleeves for NFC business cards, with a QR code and contact details.",
+      "facts": "Designed in Fusion 360 and printed in PLA on a Bambu Lab P1S. The sleeves clip on with no supports.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I designed 3D-printed sleeves for NFC (near-field communication) business cards, with a QR code on one side and my contact details on the other. Tapping a phone on the card opens my portfolio."
+        },
+        {
+          "heading": "Why",
+          "text": "It started as a test of two-colour printing. Split a model into a positive and a negative part, then swap filament on the first layer so each part prints in its own colour."
+        },
+        {
+          "heading": "How",
+          "text": "I designed the sleeve in Fusion 360 and printed it in PLA on a Bambu Lab P1S, from December 2023 to January 2024. The cards inside are store-bought, a pack of 10 for about $10, and I wrote my portfolio link to each one with the NFC Tools app. A topographic inlay surrounds the QR code. The sleeve slides on, then clips to the other side, and it prints with no supports. I made black-on-white and white-on-black versions."
+        }
+      ],
+      "media": [
+        {
+          "src": "white.png",
+          "alt": "Both sides of a white sleeve: a QR code inside grey topographic lines, and Robin Anderson, Computer Engineering at McMaster University, an email address and robinn.ca.",
+          "caption": "A render of the sleeve, rebuilt in 2026 with current details."
+        },
+        {
+          "src": "black.png",
+          "alt": "The same two sides on a black sleeve, with white lines and text.",
+          "caption": "The white-on-black version."
+        }
+      ]
+    },
+    {
+      "slug": "eq",
+      "name": "graphic-eq",
+      "kind": "hw",
+      "year": 2023.2,
+      "months": 2,
+      "sized": false,
+      "what": "An analog desktop graphic equalizer for headphones. Designed, parts ordered, never built.",
+      "facts": "Board in Altium, enclosure in Fusion 360. Relay true bypass driven by an ATtiny and an optocoupler. Balanced stereo in and out.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I designed an analog five-band graphic equalizer for desktop headphones, both the board and the enclosure, and ordered the parts. I never built it."
+        },
+        {
+          "heading": "Why",
+          "text": "I had a desktop headphone setup and wanted an analog way to shape the tone. Nothing on the market did that at a fair price, so I designed my own."
+        },
+        {
+          "heading": "How",
+          "text": "I designed the board in Altium Designer and the enclosure in Fusion 360 together. Each band has its own knob and op-amp, and I worked from articles on gyrator filters and an equalizer calculator. For a true bypass, two relays switched by an ATtiny through an optocoupler take the equalizer fully out of the signal path. Inputs and outputs are balanced stereo."
+        },
+        {
+          "heading": "Where it stands",
+          "text": "The project stopped after the parts were ordered, so there's no finished unit."
+        }
+      ],
+      "media": [
+        {
+          "src": "board.png",
+          "alt": "Render of the equalizer board: green board, five knobs on blue potentiometers in a row, relays and a red toggle switch.",
+          "caption": "Render of the board design."
+        }
+      ]
+    },
+    {
+      "slug": "krystal",
+      "name": "krystal-klear",
+      "kind": "hw",
+      "year": 2023.2,
+      "months": 2,
+      "what": "A mirror arm that helps a client with multiple sclerosis cross the road without help.",
+      "facts": "ENGINEER 1P13 final project. Bird-bone-style printed arm that holds 20 lb, joystick controls, under $100.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "For ENGINEER 1P13, my first-year design course, my team built a device for a client with multiple sclerosis. The brief: something simple that helps the client get around without getting in the way of other daily tasks. We built a mirror on a joystick-steered arm, so the client can see traffic while crossing the road."
+        },
+        {
+          "heading": "Why",
+          "text": "The client had to be able to adjust and service it without help, so the parts most likely to break had to be easy to reach. The whole thing had to cost under $100."
+        },
+        {
+          "heading": "How",
+          "text": "The arm copies bird bones: a printed lattice that's light but strong, with the wires running inside like blood vessels. I wrote the Arduino C++ that moved the arm and read its sensors, worked on the CAD (computer-aided design) and wired it together. Cutting overhangs meant no print supports and 37% less print time per segment, and we checked the stress points in simulation. The decision I'd change was choosing in week one to 3D print everything. Print time slowed every test, and we went from a scaled-down prototype to the final design in three days. Next time I'd mix in other methods and book makerspace time across the whole project."
+        },
+        {
+          "heading": "Results",
+          "text": "The final arm weighs under 300 g and holds 20 lb hanging from its end, almost twice as strong as our first prototype."
+        }
+      ],
+      "media": [
+        {
+          "src": "arm.jpg",
+          "alt": "The finished arm on a workbench: a black printed lattice holding a mirror in a blue frame, wired to a blue joystick on a wooden board."
+        },
+        {
+          "src": "prototype.jpg",
+          "alt": "Close-up of a printed arm segment from above, with coloured wires running through the open lattice.",
+          "caption": "My first prototype, with the wiring inside."
+        }
+      ]
+    },
+    {
+      "slug": "president",
+      "name": "president",
+      "kind": "rk",
+      "year": 2026.6,
+      "months": 3.5,
+      "what": "I'm president of McMaster Rocketry, a student team of over 100 members that designs, builds and flies its own rockets.",
+      "facts": "Launch Canada 2026: 4th of 14 teams in Restricted Launch with Osiris, a 3.2 m rocket that reached 33,551 ft, and 1st of 8 in the Payload Challenge.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I've been president of McMaster Rocketry since August 2026, and I'm the team's sponsorship contact. Before that I was Payload Lead from September 2024 to August 2026, and both payloads I led won the Payload Challenge at Launch Canada."
+        },
+        {
+          "heading": "Results",
+          "text": "This year's rocket, Osiris, flew on the most powerful motor in team history and reached 33,551 ft at Mach 1.92. It was our first rocket with working airbrakes, and it flew a student-designed flight computer as backup. At Launch Canada 2026 we placed 4th of 14 in Restricted Launch and 1st of 8 in the Payload Challenge."
+        }
+      ],
+      "media": [
+        {
+          "src": "osiris-rail.webp",
+          "alt": "Osiris lying on the launch rail, sponsor logos along its white airframe.",
+          "caption": "Photo: McMaster Rocketry Team."
+        },
+        {
+          "src": "osiris-open.webp",
+          "alt": "Osiris opened up before final assembly: the airbrake actuator, the avionics bay and the payload section.",
+          "caption": "Photo: McMaster Rocketry Team."
+        }
+      ]
+    },
+    {
+      "slug": "magpie",
+      "name": "magpie",
+      "kind": "rk",
+      "year": 2025.7,
+      "months": 12,
+      "what": "An epoxy fracture test flown on Osiris, the first step toward a self-healing polymer payload. 1st of 8 teams in the Payload Challenge at Launch Canada 2026.",
+      "facts": "I led the payload team and wrote the radio board's firmware.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Magpie was McMaster Rocketry's first scientific payload, and the second one I led. It measured how epoxy samples crack under real flight loads, as a baseline for a later payload that aims to fly a self-healing polymer."
+        },
+        {
+          "heading": "Why",
+          "text": "Self-healing polymers could help reusable rockets survive hard acceleration, aerodynamic loads and repeated heating. Before we fly one, we need to know how a plain epoxy sample breaks under the same conditions. That's what Magpie measured."
+        },
+        {
+          "heading": "How",
+          "text": "Each test module pulls on a tapered epoxy sample with a linear actuator and reads the force with a load cell. Three student-designed boards, linked over CAN bus, handle experiment I/O, battery management and communications. I wrote the radio board's firmware, and designed it so a dropped LoRa link doesn't mean lost control: commands can also come in over CAN as a backup. I also ordered the machined plates and couplers for the test modules. Once started, Magpie runs on its own, with no pyrotechnics and no pressurized parts."
+        },
+        {
+          "heading": "Results",
+          "text": "Magpie flew on Osiris to 33,551 ft, and the boards logged load cell and actuator data through the flight. It took 1st of 8 teams in the Payload Challenge at Launch Canada 2026."
+        }
+      ],
+      "media": [
+        {
+          "src": "bench.webp",
+          "alt": "Magpie standing on a table: an aluminum frame holding test modules above the board stack.",
+          "caption": "Photo: McMaster Rocketry Team."
+        }
+      ]
+    },
+    {
+      "slug": "sparrow",
+      "name": "sparrow",
+      "kind": "rk",
+      "year": 2024.7,
+      "months": 12,
+      "what": "A 360-degree camera and a recovery beacon, flown on Nimbus. 1st of 12 teams in the Payload Challenge at Launch Canada 2025.",
+      "facts": "My first year as Payload Lead. I started the beacon board, designed the camera breakout board and helped write the ESP32 Bluetooth firmware.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Sparrow was my first payload as Payload Lead. It was a 360-degree camera to film the whole flight in every direction, and a recovery beacon to help us find the rocket once it landed. It flew on Nimbus at Launch Canada 2025."
+        },
+        {
+          "heading": "Why",
+          "text": "A camera on one side only shows you one side of the flight, so we went with one that sees everything. The beacon handles the other job every launch has: finding the airframe after it comes down."
+        },
+        {
+          "heading": "How",
+          "text": "I started the beacon board, with three 555 timers driving two piezo buzzers so you can find the rocket by ear. A teammate finished its schematic and routing. I also designed the camera breakout board, and for its second version I flipped the connectors, added a ground plane and widened the tracks to carry 2 A. I helped write RocketWiFi too, the Bluetooth firmware on the payload's ESP32 that handled payload activation. The boards sit in an open aluminum frame and talk over CAN bus."
+        },
+        {
+          "heading": "Results",
+          "text": "Sparrow took 1st of 12 teams in the Payload Challenge, and Nimbus placed 3rd of 17 in Basic Launch. The one miss: we didn't recover the camera footage after the flight."
+        }
+      ],
+      "media": [
+        {
+          "src": "assembly.webp",
+          "alt": "Sparrow on its display base: the camera, beacon and boards inside an open aluminum frame.",
+          "caption": "Photo: McMaster Rocketry Team."
+        }
+      ]
+    },
+    {
+      "slug": "hestia",
+      "name": "hestia",
+      "kind": "rk",
+      "year": 2024.5,
+      "months": 1,
+      "what": "A 2-cell battery board that guards against reverse wiring, too much current and draining too low.",
+      "facts": "KiCad, 2 layers, no microcontroller. In testing, the reverse polarity protection held.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I designed Hestia, a protection board for the team's 2-cell battery packs. It guards against the usual mistakes: plugging the pack in backwards, drawing too much current and running it flat. A switch signal turns the output on."
+        },
+        {
+          "heading": "Why",
+          "text": "The team needed its packs protected from those mistakes. Every protection on Hestia is an analog circuit with no microcontroller, so none of it depends on firmware working."
+        },
+        {
+          "heading": "How",
+          "text": "It's a 2-layer KiCad 8 board with 40 footprints, many from the team's shared library. A P-channel MOSFET blocks reverse polarity, with an 11 V Zener guarding its gate. A resettable fuse handles overcurrent and lights a yellow LED when it trips. For undervoltage, an op-amp compares half the battery voltage with a 1.8 V Zener reference, which puts the cutoff near 6.9 V. One layout fix: the push button blocked the connectors at first, so I moved it to the top edge."
+        },
+        {
+          "heading": "Testing",
+          "text": "On the bench, the reverse polarity protection worked. Then we pushed current backwards on purpose until the MOSFET got hot enough to desolder itself, which cut the circuit before the rest of the board cooked. A later review caught a mistake of mine: one fuse indicator option (jumper JP2) can never light, because its transistor's gate and source share a node. The board also has a plain LED option (JP3), and that one works."
+        }
+      ],
+      "media": [
+        {
+          "src": "render.png",
+          "alt": "Render of the Hestia board's circuit side: the undervoltage lockout, reverse polarity and fuse trip blocks, and the Hestia logo."
+        }
+      ]
+    },
+    {
+      "slug": "kicad",
+      "name": "kicad-library",
+      "kind": "rk",
+      "year": 2024.5,
+      "months": 1,
+      "what": "The team's shared KiCad symbol and footprint library.",
+      "facts": "37 commits, July 2024 to May 2025.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "The rocketry team's shared KiCad library of symbols, footprints and 3D models. Team boards like Hestia use its footprints. I also taught KiCad in the team's workshops."
+        },
+        {
+          "heading": "How",
+          "text": "Parts come from the JLCPCB catalogue through easyeda2kicad, or by hand when it doesn't have them. Basic resistors and capacitors follow one naming format, so anyone on the team can search for them. A teammate started the library in July 2024, and I joined two days later. I added parts as our boards needed them: LEDs, MOSFETs, a fuse, buzzers, battery ICs, an LM66200 ideal diode, a USB hub controller and Molex Nano-Fit connectors. I also drew a battery holder with a 3D model, and the team's silkscreen graphics and bird logo. The fiddly one was an M4 screw terminal footprint, which took six commits in one day to get a true 10 mm outline with no solder paste on it."
+        }
+      ]
+    },
+    {
+      "slug": "gcs",
+      "name": "ground-station",
+      "kind": "rk",
+      "year": 2023.7,
+      "months": 8,
+      "what": "Power board for the team's ground control module: switches a 2S LiPo between charging and discharging.",
+      "facts": "I led the project. KiCad board, Rust firmware on an STM32. A tantalum capacitor went in backwards and blew, and the board worked after a resolder.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "The ground control module was going to be the team's rocket control centre, an STM32 with LoRa radio, GPS and Bluetooth. I led it, and the first hardware I made for it was a power board that switches a 2-cell LiPo between charging and discharging."
+        },
+        {
+          "heading": "Why",
+          "text": "As lead I covered software, CAD and electronics integration. I picked the STM32 and pushed for safety features from the start, like remote ignition and fail-safes."
+        },
+        {
+          "heading": "How",
+          "text": "I designed the board in KiCad and had JLCPCB make it: an STM32F103, USB-C charging, 5 V and 3.3 V switching regulators and seven status LEDs. Then I wrote Rust firmware to bring it up and check everything worked."
+        },
+        {
+          "heading": "What went wrong",
+          "text": "A tantalum capacitor blew on the first power-up. My schematic had it backwards. We'd ordered two boards, so testing kept going, and the board worked once I soldered in a new one. Since then I check every polarized part before ordering, and I always order a spare."
+        }
+      ],
+      "media": [
+        {
+          "src": "rev1.jpg",
+          "alt": "The first revision of the ground station power board: STM32, USB-C port, two switching regulators and a row of status LEDs."
+        },
+        {
+          "src": "blown-capacitor.jpg",
+          "alt": "Close-up of the first board held in a hand, with scorch marks where the reversed tantalum capacitor blew.",
+          "caption": "The capacitor that went in backwards."
+        }
+      ]
+    },
+    {
+      "slug": "avionics",
+      "name": "avionics",
+      "kind": "rk",
+      "year": 2022.7,
+      "months": 24,
+      "what": "Two years on the avionics team, writing drivers for the ground control module.",
+      "facts": "STM32 and ESP32 drivers for SPI and UART, fault recovery, debugged over JTAG.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I spent two years on the rocketry team's avionics side, from September 2022 to August 2024. My work there went into the ground control module, the team's planned rocket control centre: an STM32 and an ESP32 with LoRa radio, GPS and Bluetooth."
+        },
+        {
+          "heading": "How",
+          "text": "I wrote drivers for the STM32 and the ESP32 over SPI and UART, plus fault recovery, and debugged them over JTAG. The power board I designed for the module has its own page, ground-station."
+        }
+      ]
+    },
+    {
+      "slug": "website",
+      "name": "robinn.ca",
+      "kind": "sw",
+      "year": 2026.86,
+      "months": 0.2,
+      "what": "This site: my projects drawn as an ASCII tree that grows when the page loads.",
+      "facts": "Astro and one JSON file. The tree is plain WebGL 2 with no libraries.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I redesigned my portfolio as an ASCII tree. Each category of work is a limb of the tree, and each node on it is a project. When the page loads, the tree grows from my first project to my newest. Click a category to zoom in, then a node to open that project."
+        },
+        {
+          "heading": "Why",
+          "text": "My old site at this address was a React dashboard. I wanted a site that looks like mine, where any project is two clicks from the home page, and where adding a project means editing one file."
+        },
+        {
+          "heading": "How",
+          "text": "I designed it through rounds of prototypes and built it with Claude Code. The hard part was making ASCII move smoothly instead of snapping from cell to cell. The tree is drawn as ordinary shapes first, then the graphics card picks one glyph for each character cell from what's drawn inside it. Thin lines become - \\ | or /, and the rest becomes . : or #. A longer set of glyphs read as random noise, so I kept it to those few."
+        },
+        {
+          "heading": "Results",
+          "text": "The site has no server. A build turns one JSON file into a page per project, and a bad entry stops the build and names it. The tree started on three.js, and rewriting it in plain WebGL 2 dropped the library entirely. Without WebGL 2 or JavaScript, every project is still one click away in a plain list."
+        }
+      ],
+      "media": [
+        {
+          "src": "tree.png",
+          "alt": "The home page: an ASCII tree on a pale background with four coloured groups of nodes for rocketry, software, hardware and work, a file tree of every project on the left, and a year slider under the drawing.",
+          "caption": "The home page once the tree has grown."
+        }
+      ]
+    },
+    {
+      "slug": "knockthru",
+      "name": "knockthru",
+      "kind": "sw",
+      "featured": true,
+      "year": 2026.8,
+      "months": 1,
+      "what": "Knock twice on a Steam Frame headset to see your room.",
+      "repo": "VioletTides/KnockThru",
+      "facts": "C++ on the headset. {stars} GitHub stars. Tests replay 10 real recordings, 512 s of motion. Standby CPU about 0.1%.",
+      "href": "https://github.com/VioletTides/KnockThru",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Knock twice to turn on passthrough and see your room without taking off a Steam Frame. Knock three times to switch between the room over the game and only the room. It runs on the headset itself, in C++, and presses Room View on the SteamVR dashboard for you."
+        },
+        {
+          "heading": "Why",
+          "text": "I made KnockThru for accessibility. The Room View button is tiny, and some people find it hard to hit twice."
+        },
+        {
+          "heading": "How",
+          "text": "The tricky part: SteamVR only gives you position and speed, no accelerometer. A knock is a speed spike, but so is swinging your arm, and the swing is often bigger. What gives a knock away is that the controller nearly stops right after. So KnockThru checks about once a millisecond, waits about 50 ms after a spike, and only counts it if the controller has dropped under 0.4 m/s. What the other devices did at that moment tells apart controllers knocked together, a controller on a surface and a knock on the headset. Four or more knocks in a row do nothing, so steady clapping never counts."
+        },
+        {
+          "heading": "Results",
+          "text": "I tested it against 10 recordings from a real headset, 512 s of motion: 0 false triggers in 111 s of play, clapping and strap fitting, and 23 of 24 mixed knock sets right with 0 wrong. A power pass cut standby use from 2.0% of a CPU core to 0.12%. When issue #43 asked for a knock to toggle the performance overlay, I shipped it in 1.1.0 the same day."
+        }
+      ],
+      "media": [
+        {
+          "src": "dashboard.png",
+          "alt": "The KnockThru panel: passthrough status reading Off, a Translucent or Opaque style switch, and toggles for each kind of knock."
+        }
+      ]
+    },
+    {
+      "slug": "octo",
+      "name": "octo",
+      "kind": "sw",
+      "year": 2026.7,
+      "months": 2,
+      "repo": "winters27/octo",
+      "what": "Six merged pull requests to octo, a self-hosted music server. It has {stars} stars on GitHub.",
+      "facts": "C# and Rust. Fixed a stream start throttled to about 30 KB/s, search contention and slow cover art.",
+      "href": "https://github.com/winters27/octo/pulls?q=author%3AVioletTides",
+      "linkText": "My pull requests on GitHub",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I run Octo, a self-hosted music service built on Navidrome, on my home server, and I've had six pull requests merged into it. Search reaches past your own library, songs play right away, and anything worth keeping downloads into the library."
+        },
+        {
+          "heading": "Why",
+          "text": "On my server, songs took 45 to 116 s to start. I traced each slowdown to its cause and fixed it in Octo itself."
+        },
+        {
+          "heading": "How",
+          "text": "Every slowdown turned out to be the app competing with itself, not slow servers. YouTube throttles a request with no Range header to about 30 KB/s, so Octo now always sends one. A search still in flight blocked the longer one typed after it, so a longer query now cancels the shorter one it starts with. Album art waited behind the search's own Deezer traffic, so art now loads ahead of time on a background lane. Those fixes were C#. After Octo moved to Rust, I added hearting a song to download its album, and fixed one-song releases hiding the album they came from."
+        },
+        {
+          "heading": "Results",
+          "text": "The maintainer merged all six. On pull request #91 the reply was that it was merged and out in Octo 2026.10.14, and #106 got a \"really good catch\"."
+        }
+      ]
+    },
+    {
+      "slug": "fm",
+      "name": "fm-receiver",
+      "kind": "sw",
+      "year": 2026,
+      "months": 3,
+      "what": "A real-time FM radio receiver with stereo and RDS decoding, in multithreaded C++.",
+      "facts": "COMPENG 3DY4, team of 4. I wrote the polyphase resampler and the RDS decoding and application layer.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Our team of 4 built a real-time FM radio receiver in multithreaded C++ on a Raspberry Pi, for COMPENG 3DY4. It plays mono and stereo audio and decodes RDS (Radio Data System), the data stations send alongside the audio."
+        },
+        {
+          "heading": "How",
+          "text": "We modelled every block in Python first. I wrote the resampler, translated the mono path into C++ and tested it on the Pi. One of our modes turns 240,000 samples a second into 44,100 for audio, which means upsampling by 147 and downsampling by 800. Done the plain way, that's 147 times the multiplications, almost all on padded zeros, and most of the results get thrown away. The course also capped each filter at 75 to 101 multiplications per output sample. A polyphase resampler only computes the outputs you keep, from only the taps that land on real samples."
+        },
+        {
+          "heading": "RDS",
+          "text": "I wrote the Manchester and differential decoding and the application layer, which reads station data out of the bit stream, in both Python and C++. In all, 22 of the team's 61 commits are mine."
+        }
+      ]
+    },
+    {
+      "slug": "pacemaker",
+      "name": "pacemaker",
+      "kind": "sw",
+      "year": 2025.7,
+      "months": 3,
+      "what": "Pacemaker software for SFWRENG 3K04, as part of a group.",
+      "facts": "Python and PyQt5. I wrote the login, the main window and the pacing modes and parameters page.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Our group of 5 built software for a pacemaker in SFWRENG 3K04. The others built the pacing logic in Simulink for the board. I worked on the DCM (Device Controller-Monitor), the desktop app a clinician uses to set the pacemaker."
+        },
+        {
+          "heading": "How",
+          "text": "The DCM is Python with PyQt5. I wrote the login, the main window, and the page where you pick a mode and set its parameters. A pacemaker has 10 modes, from AOO to DDDR, and each one uses a different set of 22 parameters. So one page holds all 10 modes, and picking a mode shows only the fields that mode uses. Each field only accepts values in the range the device takes, for example a lower rate limit of 30 to 175 pulses per minute. Saving writes the values to a JSON file, then sends them to the pacemaker over UART."
+        }
+      ],
+      "media": [
+        {
+          "src": "parameters.png",
+          "alt": "The DCM parameters page with VVI selected among 10 mode buttons. It shows lower and upper rate limits, ventricular amplitude, pulse width and sensitivity, refractory period, hysteresis and rate smoothing, with Save Parameters and Reset Defaults buttons.",
+          "caption": "The parameters page in VVI mode, run from the group's repo."
+        }
+      ]
+    },
+    {
+      "slug": "debian",
+      "name": "violet-debian",
+      "kind": "sw",
+      "year": 2023.8,
+      "months": 3,
+      "what": "A script that builds a minimal Debian desktop with dwm.",
+      "facts": "Bash. 88 commits. Tested in virtual machines.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I wrote a Bash script that turns a fresh Debian install into my minimal desktop, built around the dwm window manager."
+        },
+        {
+          "heading": "Why",
+          "text": "I wanted to learn Bash scripting and understand how a Linux desktop builds up from a bare terminal."
+        },
+        {
+          "heading": "How",
+          "text": "The script installs dwm, dmenu and Kitty, then sets up the rest of my tools and the mononoki font. I tested every change in virtual machines, so each try was quick to throw away and redo. File paths broke most often, about 10 commits' worth. I started with Alacritty as the terminal, but building it needed Rust and Cargo, so I switched to Kitty."
+        },
+        {
+          "heading": "Where I left it",
+          "text": "88 commits between Nov. 13 and Dec. 9, 2023. Next on my list was asking the user where to put config files."
+        }
+      ]
+    },
+    {
+      "slug": "snake",
+      "name": "snake",
+      "kind": "sw",
+      "year": 2023.85,
+      "months": 1,
+      "what": "A terminal Snake game in object-oriented C++, with a partner.",
+      "facts": "COMPENG 2SH4 final project.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "My partner and I wrote Snake for the terminal in object-oriented C++, for COMPENG 2SH4. Arrow keys steer, Q quits, the snake grows when it eats, and running into yourself ends the game."
+        },
+        {
+          "heading": "How",
+          "text": "We split it into three classes: Snake, Food and GameMechs (the game mechanics). I wrote most of the snake's body, an array list (91 of its 114 lines), and most of the player movement (166 of 277 lines). I also fixed the timing, the screen clearing, the border and the random food lengths. My partner wrote the food generation, the game mechanics and most of the main loop. One bug from the commit log: the snake's new length didn't show up until you turned. In all, 23 of our 38 commits are mine."
+        }
+      ],
+      "media": [
+        {
+          "src": "game.png",
+          "alt": "The game in a terminal: a border of hash marks, the snake drawn as a line of @ signs, food items as numbers and letters, and Score: 32 below.",
+          "caption": "A game at a score of 32."
+        }
+      ]
+    },
+    {
+      "slug": "deltahacks",
+      "name": "deltahacks-9",
+      "kind": "sw",
+      "year": 2023.04,
+      "months": 0.1,
+      "what": "Food bank inventory and route planning, built in a weekend at DeltaHacks 9.",
+      "facts": "React, Firebase and Leaflet.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "Our team of 4 built food bank inventory and route planning over a weekend at DeltaHacks 9. Food banks sign up, track their stock and send food to each other."
+        },
+        {
+          "heading": "How",
+          "text": "Food banks make accounts with Firebase Auth and track inventory in a real-time database. Each one drops its location on a Leaflet map when it signs up. One food bank can send an export order to another by its ID, and a Leaflet router finds the fastest path. I did the database reads and writes, the profiles with latitude and longitude, the map layout and the links: 42 of the repo's 68 commits."
+        },
+        {
+          "heading": "Results",
+          "text": "We didn't place. Next we wanted routes weighted by income and stock, so low-income areas get more food."
+        }
+      ],
+      "media": [
+        {
+          "src": "route.png",
+          "alt": "A map of southern Ontario with four food bank pins and a red route joining them from Toronto north and east.",
+          "caption": "An export routed between food banks across Ontario."
+        },
+        {
+          "src": "inventory.png",
+          "alt": "The inventory page: four cards for fruits and vegetables, meats and alternatives, dairy and alternatives, and grains, each with a count.",
+          "caption": "A food bank's inventory."
+        }
+      ]
+    },
+    {
+      "slug": "timer",
+      "name": "study-timer",
+      "kind": "sw",
+      "year": 2022.85,
+      "months": 0.1,
+      "what": "A focus timer I hand-coded in Vue 3.",
+      "facts": "Vue 3 and Pinia. A 30-minute countdown by default.",
+      "sized": false,
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I hand-coded a focus timer in Vue 3 in November 2022. It counts down from 30 minutes in hours, minutes and seconds, with Start, Stop and Reset, and shows the time in the browser tab's title."
+        },
+        {
+          "heading": "How",
+          "text": "The timer's length lives in a Pinia store, so the options menu can change it, up to 1,439 minutes. The icons are Font Awesome and the font is Nasalization."
+        },
+        {
+          "heading": "Where I left it",
+          "text": "The options menu's Backgrounds and About pages are still placeholders, and the fullscreen and GitHub buttons don't do anything yet."
+        }
+      ],
+      "media": [
+        {
+          "src": "timer-2022.png",
+          "alt": "The study timer: a dark grey page with 00 : 30 : 00 in large white letters, a reset button beside it and a Start button below.",
+          "caption": "The timer at its default 30 minutes."
+        }
+      ]
+    },
+    {
+      "slug": "gd",
+      "name": "general-dynamics",
+      "kind": "wk",
+      "year": 2026.35,
+      "months": 4,
+      "what": "Advanced Vetronics Software Developer, General Dynamics Mission Systems, Ottawa.",
+      "facts": "May to August 2026. A real-time Kalman filter in C++ on a Zynq UltraScale+, telemetry logging, and VHDL in the FPGA fabric."
+    },
+    {
+      "slug": "l3harris",
+      "name": "l3harris",
+      "kind": "wk",
+      "year": 2024.35,
+      "months": 16,
+      "what": "Hardware Engineering Co-op, L3Harris WESCAM, Waterdown.",
+      "facts": "May 2024 to August 2025. 130+ root-cause analysis reports for the Material Review Board."
+    },
+    {
+      "slug": "ciena",
+      "name": "ciena",
+      "kind": "wk",
+      "year": 2023.35,
+      "months": 4,
+      "what": "Hardware Design Co-op, Ciena, Ottawa.",
+      "facts": "May to August 2023. Signal integrity on backplanes and copper cables, and Python scripts that turn measurements into reports.",
+      "sections": [
+        {
+          "heading": "What",
+          "text": "I spent May to August 2023 as a hardware design co-op at Ciena in Ottawa, on the interconnect and signal integrity team."
+        },
+        {
+          "heading": "What I did",
+          "text": "The team works on backplanes and direct-attach copper cables. I defined interconnect solutions, ran verification tests and worked with suppliers. I also wrote Python scripts that turn measurement files into Excel reports."
+        }
+      ]
+    }
+  ]
+}

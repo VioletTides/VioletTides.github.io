@@ -1,0 +1,23 @@
+---
+// One project's reading column. The project page shows it on its own. The home page keeps one per project in a
+// <template>, and ui.js clones it when the project opens on the tree. There the headings drop a level, and the
+// path is buttons with a close button.
+import { categoryOf, figuresOf, sectionsOf, type Project } from '../data/site';
+
+interface Props { p: Project; inTree?: boolean }
+const { p, inTree = false } = Astro.props;
+const br = categoryOf(p), year = Math.floor(p.year);
+const [lead, ...rest] = sectionsOf(p);
+const figures = await figuresOf(p);
+const Title = inTree ? 'h2' : 'h1', Head = inTree ? 'h3' : 'h2';
+---
+<div class="article book">
+  {inTree
+    ? <p class="where"><button type="button" data-crumb="">~/robin</button>/<button type="button" class="fold" data-crumb={p.kind}>{br.name}</button>/<span class="yr">{year}</span><button type="button" class="x" aria-keyshortcuts="Escape">close <kbd>esc</kbd></button></p>
+    : <p class="where"><a href="/">~/robin</a>/<a class="fold" href={`/?zoom=${br.kind}`}>{br.name}</a>/<span class="yr">{year}</span></p>}
+  <Title tabindex={inTree ? '-1' : undefined}>{p.name}</Title>
+  <p class="lead">{lead.text}</p>
+  {rest.map(s => <><Head>{s.heading}</Head><p>{s.text}</p></>)}
+  {figures.map(f => <figure><img src={f.src} srcset={f.srcset} sizes={f.sizes} width={f.width} height={f.height} alt={f.alt} loading="lazy" decoding="async" />{f.caption && <figcaption>{f.caption}</figcaption>}</figure>)}
+  {p.href && <p class="link"><a href={p.href}>{p.linkText ?? 'Source on GitHub'}</a></p>}
+</div>
