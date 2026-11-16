@@ -475,11 +475,11 @@
         },
         {
           "heading": "Why",
-          "text": "My old site at this address was a React dashboard. I wanted a site that looks like mine, where any project is two clicks from the home page, and where adding a project means editing one file."
+          "text": "This is my fourth portfolio. The first was a multi-page Bootstrap site with a page per course project, last updated in 2023. The second, at robinmanderson.ca, fit everything on one Bootstrap page. The third was a React dashboard at this address, with a boot sequence and a GitHub metrics panel. A Vue rewrite in 2022 never got past the starter template. This time I wanted a site that looks like mine, where any project is two clicks from the home page, and where adding a project means editing one file."
         },
         {
           "heading": "How",
-          "text": "I designed it through rounds of prototypes and built it with Claude Code. The hard part was making ASCII move smoothly instead of snapping from cell to cell. The tree is drawn as ordinary shapes first, then the graphics card picks one glyph for each character cell from what's drawn inside it. Thin lines become - \\ | or /, and the rest becomes . : or #. A longer set of glyphs read as random noise, so I kept it to those few."
+          "text": "I designed it through rounds of prototypes and built it with Claude Code, over 150 local commits. The hard part was making ASCII move smoothly instead of snapping from cell to cell. The tree is drawn as ordinary shapes first, then the graphics card picks one glyph for each character cell from what's drawn inside it. Thin lines become - \\ | or /, and the rest becomes . : or #. A longer set of glyphs read as random noise, so I kept it to those few."
         },
         {
           "heading": "Results",
