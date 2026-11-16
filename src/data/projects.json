@@ -483,7 +483,7 @@
         },
         {
           "heading": "Results",
-          "text": "The site has no server. A build turns one JSON file into a page per project, and a bad entry stops the build and names it. The tree started on three.js, and rewriting it in plain WebGL 2 dropped the library entirely. Without WebGL 2 or JavaScript, every project is still one click away in a plain list."
+          "text": "The site has no server. A build turns one JSON file into a page per project, and a bad entry stops the build and names it. The tree started on three.js, and rewriting it in plain WebGL 2 dropped the library entirely. Without WebGL 2 or JavaScript, every project is still one click away in a plain list. An accessibility scan of all 28 pages, in light and dark mode, found no serious or critical issues."
         }
       ],
       "media": [
